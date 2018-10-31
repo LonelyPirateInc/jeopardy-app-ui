@@ -9,12 +9,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
+import { GamePageComponent } from './pages/game-page/game-page.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
 
 registerLocaleData(en);
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    GamePageComponent,
+    HomePageComponent
   ],
   imports: [
     BrowserModule,
