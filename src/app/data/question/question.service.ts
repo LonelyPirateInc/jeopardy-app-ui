@@ -19,4 +19,13 @@ export class QuestionService {
         return throwError(err);
       }));
   }
+
+  public getQuestionById(questionId: string): Observable<any> {
+    return this.http
+      .get(`http://127.0.0.1:3000/question/${questionId}`)
+      .pipe(map(response => response['payload']))
+      .pipe(catchError(err => {
+        return throwError(err);
+      }));
+  }
 }

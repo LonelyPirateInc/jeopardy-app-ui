@@ -19,7 +19,7 @@ const routes: Routes = [
     component: TeamPageComponent
   },
   {
-    path: 'play',
+    path: 'play/:questionId',
     component: PlayPageComponent
   }
 ];

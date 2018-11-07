@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import * as groupBy from 'lodash/groupBy';
+import { QuestionService } from 'src/app/data/question/question.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-question-category',
@@ -11,7 +13,7 @@ export class QuestionCategoryComponent implements OnInit {
   @Output() questionSelected = new EventEmitter();
 
   questions: any;
-  constructor() {}
+  constructor(private questionService: QuestionService, private router: Router) {}
 
   ngOnInit() {
     this.questions = this.sortQuestionsByDifficulty(this.category.questions);

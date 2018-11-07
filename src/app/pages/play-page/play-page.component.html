@@ -1,5 +1,11 @@
-<div class="play-page-wrapper">
-  <div class="question-wrapper" *ngIf="question">
+<div class="play-page-wrapper" *ngIf="question; else loading">
+  <div class="question-wrapper">
     <div class="question-text">{{ question.questionText }}</div>
   </div>
+  <ul class="answers-wrapper" *ngFor="let answer of question.answers">
+    <li class="answer">{{ answer.answerText }}</li>
+  </ul>
 </div>
+<ng-template #loading>
+  Loading stuff...
+</ng-template>

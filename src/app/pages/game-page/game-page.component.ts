@@ -22,6 +22,8 @@ export class GamePageComponent implements OnInit {
   game: any;
   isVisible: boolean;
   newGameName: string;
+  showGamePlay: boolean;
+  selectedQuestion: any;
 
   constructor(
     private gameService: GameService,
@@ -86,13 +88,7 @@ export class GamePageComponent implements OnInit {
   }
 
   public showQuestion(question: any): void {
-    const playUrl = '/play';
-    const navigationExtras = {
-      queryParams: {
-        questionId: question.id
-      }
-    };
-    this.router.navigateByUrl(playUrl, navigationExtras);
-    this.questionService.questionSelected.next(question);
+    const playUrl = '/play/';
+    this.router.navigate([playUrl, question.id]);
   }
 }
