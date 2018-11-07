@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import * as groupBy from 'lodash/groupBy';
 
 @Component({
@@ -23,9 +23,6 @@ export class QuestionCategoryComponent implements OnInit {
 
   selectDifficulty(difficulty: number): void {
     const activeQuestions = this.questions[difficulty].filter(question => question.isActive);
-    console.log(activeQuestions);
-    
-    // change it to the random selection
     this.questionSelected.emit(activeQuestions[0]);
   }
 }

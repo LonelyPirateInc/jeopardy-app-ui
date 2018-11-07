@@ -4,9 +4,9 @@
       <p class="category-title">{{ category.categoryText }}</p>
     </div>
     <ul>
-      <li (click)="selectDifficulty(0)">Easy</li>
-      <li (click)="selectDifficulty(1)">Medium</li>
-      <li (click)="selectDifficulty(2)">Hard</li>
+      <li *ngIf="questions[0]" (click)="selectDifficulty(0)">Easy</li>
+      <li *ngIf="questions[1]" (click)="selectDifficulty(1)">Medium</li>
+      <li *ngIf="questions[2]" (click)="selectDifficulty(2)">Hard</li>
     </ul>
   </div>
 </div>

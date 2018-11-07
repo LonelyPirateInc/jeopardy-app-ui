@@ -8,7 +8,7 @@
     <div class="question-category-wrapper">
       <div class="question-category-list" *ngFor="let category of categories">
         <div class="non-all-in-categories-wrapper">
-          <app-question-category *ngIf="!category.isAll" [category]="category"></app-question-category>
+          <app-question-category *ngIf="!category.isAll" (questionSelected)="showQuestion($event)" [category]="category"></app-question-category>
         </div>
       </div>
     </div>
