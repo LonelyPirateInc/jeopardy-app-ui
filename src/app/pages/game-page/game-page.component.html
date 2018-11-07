@@ -1,10 +1,16 @@
 <div class="game-container">
-  <div class="game-title">
-    The Gig is Up
+  <div class="no-game-wrapper">
+    <button (click)="createGame('esswqsddd')">New Game</button>
+    <button>Reset Game</button>
   </div>
-  <div class="question-category-wrapper">
-    <div class="question-category-list" *ngFor="let question of questions">
-      <app-question-category [category]="question"></app-question-category>
+  <div class="game-play-wrapper" *ngIf=categories>
+    <div class="game-title">
+      The Gig is Up
+    </div>
+    <div class="question-category-wrapper">
+      <div class="question-category-list" *ngFor="let category of categories">
+        <app-question-category [category]="category"></app-question-category>
+      </div>
     </div>
   </div>
 </div>
