@@ -20,4 +20,13 @@ export class GameService {
         return throwError(err);
       }));
   }
+
+  public getRecentGame(): Observable<any> {
+    return this.http
+      .get(`http://127.0.0.1:3000/game`)
+      .pipe(map(response => response['success'] ? response['payload'] : false))
+      .pipe(catchError(err => {
+        return throwError(err);
+      }));
+  }
 }

@@ -1,16 +1,29 @@
 <div class="game-container">
-  <div class="no-game-wrapper">
-    <button (click)="createGame('esswqsddd')">New Game</button>
-    <button>Reset Game</button>
+  <div class="no-game-wrapper" *ngIf="!existsGame">
+    <button nz-button nzType="primary" (click)="showModal()">New Game</button>
   </div>
-  <div class="game-play-wrapper" *ngIf=categories>
-    <div class="game-title">
-      The Gig is Up
-    </div>
+  
+  <div class="game-play-wrapper" *ngIf="categories && game">
+    <div class="game-title">{{ game.name }}</div>
     <div class="question-category-wrapper">
       <div class="question-category-list" *ngFor="let category of categories">
-        <app-question-category [category]="category"></app-question-category>
+        <div class="non-all-in-categories-wrapper">
+          <app-question-category *ngIf="!category.isAll" [category]="category"></app-question-category>
+        </div>
       </div>
+    </div>
+    <div class="all-in-button-wrapper">
+      <button class="all-in-button">All In</button>
     </div>
   </div>
 </div>
+<nz-modal 
+  [(nzVisible)]="isVisible" 
+  nzTitle="Create Game" 
+  (nzOnCancel)="handleModalCancel()" 
+  (nzOnOk)="handleModalSubmit()">
+  <input 
+    nz-input 
+    placeholder="Please enter a game name" 
+    [(ngModel)]="newGameName">
+</nz-modal>

@@ -1,10 +1,12 @@
-<div class="category-wrapper">
-  <div class="category-title-wrapper">
-    <p class="category-title">{{ category.categoryName }}</p>
+<div class="category-container">
+  <div class="category-wrapper" *ngIf="!category.isAllIn">
+    <div class="category-title-wrapper">
+      <p class="category-title">{{ category.categoryText }}</p>
+    </div>
+    <ul>
+      <li (click)="selectDifficulty(0)">Easy</li>
+      <li (click)="selectDifficulty(1)">Medium</li>
+      <li (click)="selectDifficulty(2)">Hard</li>
+    </ul>
   </div>
-  <ul>
-    <li (click)="selectDifficulty(0)">Easy</li>
-    <li (click)="selectDifficulty(1)">Medium</li>
-    <li (click)="selectDifficulty(2)">Hard</li>
-  </ul>
 </div>
