@@ -1,3 +1,10 @@
-<p>
-  game-page works!
-</p>
+<div class="game-container">
+  <div class="game-title">
+    The Gig is Up
+  </div>
+  <div class="question-category-wrapper">
+    <div class="question-category-list" *ngFor="let question of questions">
+      <app-question-category [category]="question"></app-question-category>
+    </div>
+  </div>
+</div>

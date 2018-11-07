@@ -1,0 +1,54 @@
+[
+  {
+    "categoryName": "400G, 600G, 800G... Game On!",
+    "questions": [
+      {
+        "questionText": "My customers are saying that Acacia’s 2x600G solution, AC1200, will be available soon.How do I sell against this ? Select ALL that apply.",
+        "difficulty": 0,
+        "answers": [
+          {
+            "answerText": "The AC1200 is still not planned on competitive platforms until at least 1Q2019, and Acacia has missed their date many times",
+            "point": 10000,
+            "isCorrect": true
+          },
+          {
+            "answerText": "Position WaveLogic 5 Extreme as being a better solution for 50GHz gridded networks.",
+            "point": -30000,
+            "isCorrect": false
+          },
+          {
+            "answerText": "With its strong ramp, WaveLogic Ai provides volume-based savings, allowing it to still be very competitive.",
+            "point": 30000,
+            "isCorrect": true
+          },
+          {
+            "answerText": "WaveLogic 5 Extreme will be available end of 2019, delivering 800G with a further leapfrog in economics and capacity.",
+            "point": 20000,
+            "isCorrect": true
+          },
+          {
+            "answerText": "Offer to buy lunch at the most expensive restaurant in the area.",
+            "point": -20000,
+            "isCorrect": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "categoryName": "Some Category Name",
+    "questions": [
+      {
+        "questionText": "Some Question Text",
+        "difficulty": 0,
+        "answers": [
+          {
+            "answerText": "Some Answer Text",
+            "point": 10000,
+            "isCorrect": true
+          }
+        ]
+      }
+    ]
+  }
+]

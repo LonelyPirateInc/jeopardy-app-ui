@@ -1,0 +1,23 @@
+.game-container {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.question-category-wrapper {
+  display: flex;
+  justify-content: space-around;
+}
+
+.question-category-list {
+  display: flex;
+  flex-direction: row;
+}
+
+.game-title {
+  color: white;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 500;
+}

@@ -11,6 +11,8 @@ import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { GamePageComponent } from './pages/game-page/game-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
+import { SharedModule } from './shared/shared.module';
+import { DataModule } from './data/data.module';
 
 registerLocaleData(en);
 
@@ -21,6 +23,8 @@ registerLocaleData(en);
     HomePageComponent
   ],
   imports: [
+    SharedModule,
+    DataModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
