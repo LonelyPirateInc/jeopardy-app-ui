@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
 })
 export class PlayPageComponent implements OnInit, OnDestroy {
   questionSelectionSubscription: Subscription;
-
+  question: any;
   constructor(private questionService: QuestionService) { }
 
   ngOnInit() {
@@ -18,8 +18,8 @@ export class PlayPageComponent implements OnInit, OnDestroy {
 
   private subscribeToSubject(): void {
     this.questionSelectionSubscription = this.questionService.questionSelected.subscribe(question => {
-      console.log('subscribing the question....');
       console.log(question);
+      this.question = question;
     });
   }
 
