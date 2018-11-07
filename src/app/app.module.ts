@@ -13,6 +13,9 @@ import { GamePageComponent } from './pages/game-page/game-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { SharedModule } from './shared/shared.module';
 import { DataModule } from './data/data.module';
+import { LeaderPageComponent } from './pages/leader-page/leader-page.component';
+import { TeamPageComponent } from './pages/team-page/team-page.component';
+import { PlayPageComponent } from './pages/play-page/play-page.component';
 
 registerLocaleData(en);
 
@@ -20,7 +23,10 @@ registerLocaleData(en);
   declarations: [
     AppComponent,
     GamePageComponent,
-    HomePageComponent
+    HomePageComponent,
+    LeaderPageComponent,
+    TeamPageComponent,
+    PlayPageComponent,
   ],
   imports: [
     SharedModule,
