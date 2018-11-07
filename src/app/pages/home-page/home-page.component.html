@@ -4,20 +4,27 @@
     </div>
     <ul nz-menu [nzTheme]="'dark'" [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">
       <li nz-menu-item>
-        <span title><i nz-icon type="user"></i>
-        <span class="nav-text">Gameboard</span></span>
+        <a routerLink="/" routerLinkActive="router-link-active" >
+          <span title><i nz-icon type="user"></i>
+          <span class="nav-text">Gameboard</span></span>
+        </a>
       </li>
       <li nz-menu-item>
-        <span title><i nz-icon type="user"></i>
+        <a routerLink="/leadership" >
+          <span title><i nz-icon type="user"></i>
           <span class="nav-text">Leaderboard</span></span>
+        </a>
       </li>
-      <li nz-menu-item>
+      <!-- <li nz-menu-item>
+        <a [routerLink]="['/question']"></a>
         <span title><i nz-icon type="user"></i>
           <span class="nav-text">Questions</span></span>
-      </li>
+      </li> -->
       <li nz-menu-item>
-        <span title><i nz-icon type="user"></i>
+        <a routerLink="/teams">
+          <span title><i nz-icon type="user"></i>
           <span class="nav-text">Teams</span></span>
+        </a>
       </li>
     </ul>
   </nz-sider>

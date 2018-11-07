@@ -7,6 +7,7 @@ import { QuestionService } from 'src/app/data/question/question.service';
 import { of, forkJoin } from 'rxjs';
 import * as sortyBy from 'lodash/sortBy';
 import * as groupBy from 'lodash/groupBy';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-game-page',
@@ -25,6 +26,7 @@ export class GamePageComponent implements OnInit {
   constructor(
     private gameService: GameService,
     private questionService: QuestionService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -84,6 +86,13 @@ export class GamePageComponent implements OnInit {
   }
 
   public showQuestion(question: any): void {
-    console.log('showing question', question);
+    const playUrl = '/play';
+    const navigationExtras = {
+      queryParams: {
+        questionId: question.id
+      }
+    };
+    this.router.navigateByUrl(playUrl, navigationExtras);
+    this.questionService.questionSelected.next(question);
   }
 }
