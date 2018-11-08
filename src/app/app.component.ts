@@ -17,6 +17,12 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.socketService.setupConnection(socket => console.log(socket));
+    const socket = this.socketService.setupConnection();
+    socket.on('connect', () => {
+      console.log('connected...');
+
+      socket.emit('events', { test: 'test' });
+    });
+
   }
 }
