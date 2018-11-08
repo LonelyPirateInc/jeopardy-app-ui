@@ -43,7 +43,7 @@ export class GamePageComponent implements OnInit {
       const categoriesGrouped = groupBy(categories, category => category.isAllIn);
       this.categories = categoriesGrouped[false];
       this.allInCategory = categoriesGrouped[true];
-      
+
       this.existsGame = true;
       this.game = game;
     });
@@ -89,6 +89,12 @@ export class GamePageComponent implements OnInit {
 
   public showQuestion(question: any): void {
     const playUrl = '/play/';
+    this.router.navigate([playUrl, question.id]);
+  }
+
+  public showAllIn(): void {
+    const playUrl = '/play/';
+    const question = this.allInCategory[0].questions[0];
     this.router.navigate([playUrl, question.id]);
   }
 }
