@@ -21,6 +21,10 @@ const routes: Routes = [
   {
     path: 'play/:questionId',
     component: PlayPageComponent
+  },
+  {
+    path: 'play',
+    component: PlayPageComponent
   }
 ];
 

@@ -6,15 +6,31 @@ import * as io from 'socket.io-client';
   providedIn: 'root'
 })
 export class SocketService {
-  // private socket: SocketIOClient.Socket;
+  public socket: SocketIOClient.Socket;
   public socketConnectionSubject = new Subject<boolean>();
   constructor() { }
-  setupConnection(socketConfig?: any): SocketIOClient.Socket {
+  setupConnection(socketConfig?: any): void {
     const configuration = socketConfig;
+  
     // const token: string = this.localStorageService.get<string>(AuthenticationService.TokenKey);
     // configuration['query'] = `auth_token=${token}`;
-    return io('http://127.0.0.1:8080', configuration);
+    this.socket = io('http://127.0.0.1:8080', { multiplex: true });
+    this.socket.emit('events', {test: 'testing'});
+    this.socket.on('events', (data) => {
+      console.log('connecting...');
+      console.log(data);
+    });
+    this.socket.on('questionSelected', (data) => {
+      console.log(data);
+    });
+
+    this.socket.on('events', (data) => {
+      console.log(data);
+    });
   }
 
-
+  sendQuestionSelectEvent(question: any): void {
+    this.socket.emit('events', { test: 'testing' });
+    this.socket.emit('questionSelected', question);
+  }
 }

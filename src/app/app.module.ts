@@ -17,6 +17,8 @@ import { LeaderPageComponent } from './pages/leader-page/leader-page.component';
 import { TeamPageComponent } from './pages/team-page/team-page.component';
 import { PlayPageComponent } from './pages/play-page/play-page.component';
 
+import { LocalStorageModule } from 'angular-2-local-storage';
+
 registerLocaleData(en);
 
 @NgModule({
@@ -36,7 +38,11 @@ registerLocaleData(en);
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    NgZorroAntdModule
+    NgZorroAntdModule,
+    LocalStorageModule.withConfig({
+      prefix: 'jeopardy',
+      storageType: 'localStorage'
+    }),
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
