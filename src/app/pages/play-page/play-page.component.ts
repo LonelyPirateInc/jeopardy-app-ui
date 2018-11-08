@@ -34,7 +34,8 @@ export class PlayPageComponent implements OnInit, OnDestroy {
       this.question = question[0];
       console.log(this.question);
       this.audio = new Audio();
-      this.audio.src = `../../../assets/sound/${this.question.id}.mp3`;
+      this.audio.src = `../../../assets/sound/unitedStates2020.mp3`;
+      // this.audio.src = `../../../assets/sound/${this.question.id}.mp3`;
       this.audio.load();
       this.audio.play();
       const self = this;
