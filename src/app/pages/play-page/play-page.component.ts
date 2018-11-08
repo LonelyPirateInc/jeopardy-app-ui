@@ -6,8 +6,6 @@ import { of, forkJoin, interval, Observable } from 'rxjs';
 import { map, mergeMap, filter, flatMap } from 'rxjs/operators';
 import { AnswerService } from 'src/app/data/answer/answer.service';
 import { GameService } from '../../data/game/game.service';
-import { CountdownModule } from 'ngx-countdown';
-import { interval } from 'rxjs/observable/interval';
 
 @Component({
   selector: 'app-play-page',
@@ -18,6 +16,7 @@ export class PlayPageComponent implements OnInit, OnDestroy {
   question: any;
   questionSelectionSubscription: Subscription;
   answersIds = [];
+  answers = [];
   audio: any;
   countDown: any;
 
@@ -55,12 +54,20 @@ export class PlayPageComponent implements OnInit, OnDestroy {
 
     if (this.countDown <= 0 ) {
       source.unsubscribe();
-      clearInterval(source);
-
     }
   }
 
+  getAnswers() {
+    this.question.answers.forEach(answer => this.answersIds.forEach(answerId => { if (answer.id === answerId) {this.answers.push(answer)} }));
+    // this.answers = this.question.answers.filter(answer => this.answersIds.filter(answerId => answer.id === answerId ));
+    // console.log("answers" , this.answers);
+  }
+
+
   submitAnswers() {
+    // get answers object based on answer ids 
+    this.getAnswers();
+
     this.gameService.getRecentGame()
       .pipe(flatMap(game => this.answerService.submitAnswers(this.answersIds, this.question.id, game.id)))
       .subscribe(response => console.log(response));
