@@ -13,7 +13,7 @@ export class SocketService {
     const configuration = socketConfig;
     // const token: string = this.localStorageService.get<string>(AuthenticationService.TokenKey);
     // configuration['query'] = `auth_token=${token}`;
-    return io('http://127.0.0.1:8080', configuration);
+    return io('http://127.0.0.1:8083', configuration);
   }
 
 
