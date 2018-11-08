@@ -3,9 +3,10 @@
     <div class="question-text">{{ question.questionText }}</div>
   </div>
   <ul class="answers-wrapper" *ngFor="let answer of question.answers">
-    <li class="answer">{{ answer.answerText }}</li>
+    <label nz-checkbox (ngModelChange)="answerClicked(answer)">{{ answer.answerText }}</label>
   </ul>
 </div>
+<button nz-button nzType="primary" (click)="submitAnswers()"  nzBlock>Submit</button>
 <ng-template #loading>
   Loading stuff...
 </ng-template>

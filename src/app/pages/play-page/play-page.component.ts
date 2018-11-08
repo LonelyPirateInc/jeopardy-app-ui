@@ -24,4 +24,12 @@ export class PlayPageComponent implements OnInit {
       this.question = question[0];
     });
   }
+
+  submitAnswers() {
+    this.question.answers.forEach(answer => console.log(answer));
+  }
+
+  answerClicked(answer) {
+    console.log(answer);
+  }
 }
