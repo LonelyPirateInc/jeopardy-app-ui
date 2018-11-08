@@ -2,9 +2,13 @@
   <div class="question-wrapper">
     <div class="question-text">{{ question.questionText }}</div>
   </div>
-  <ul class="answers-wrapper" *ngFor="let answer of question.answers">
-    <label nz-checkbox (ngModelChange)="answerClicked(answer)">{{ answer.answerText }}</label>
-  </ul>
+  <h2>{{countDown}}</h2>
+
+  <nz-checkbox-wrapper style="width: 100%;" (nzOnChange)="updateArrayOfAnswers($event)">
+      <div nz-row class="answers-wrapper" *ngFor="let answer of question.answers">
+          <div nz-col nzSpan="24"><label nz-checkbox nzValue="{{answer.id}}">{{ answer.answerText }}</label></div>
+      </div>
+  </nz-checkbox-wrapper>
 </div>
 <button nz-button nzType="primary" (click)="submitAnswers()"  nzBlock>Submit</button>
 <ng-template #loading>

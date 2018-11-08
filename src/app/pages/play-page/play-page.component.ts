@@ -2,34 +2,79 @@ import { Component, OnInit, OnDestroy, Input, AfterViewInit } from '@angular/cor
 import { QuestionService } from 'src/app/data/question/question.service';
 import { Subscription, from } from 'rxjs';
 import { Router, ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
-import { of, forkJoin } from 'rxjs';
+import { of, forkJoin, interval, Observable } from 'rxjs';
 import { map, mergeMap, filter, flatMap } from 'rxjs/operators';
+import { AnswerService } from 'src/app/data/answer/answer.service';
+import { GameService } from '../../data/game/game.service';
+import { CountdownModule } from 'ngx-countdown';
+import { interval } from 'rxjs/observable/interval';
+
 @Component({
   selector: 'app-play-page',
   templateUrl: './play-page.component.html',
   styleUrls: ['./play-page.component.scss']
 })
-export class PlayPageComponent implements OnInit {
+export class PlayPageComponent implements OnInit, OnDestroy {
   question: any;
   questionSelectionSubscription: Subscription;
+  answersIds = [];
+  audio: any;
+  countDown: any;
 
-  constructor(private route: ActivatedRoute, private questionService: QuestionService) { }
+  constructor(private route: ActivatedRoute,
+              private questionService: QuestionService,
+              private answerService: AnswerService,
+              private gameService: GameService,
+    ) { }
 
   ngOnInit() {
     from(this.route.paramMap).pipe(flatMap((params) => {
       const questionId = params.get('questionId');
       return forkJoin(this.questionService.getQuestionById(questionId));
     })).subscribe((question: [any]) => {
-      console.log(question);
       this.question = question[0];
+      console.log(this.question);
+      this.audio = new Audio();
+      this.audio.src = `../../../assets/sound/${this.question.id}.mp3`;
+      this.audio.load();
+      this.audio.play();
+      const self = this;
+      this.audio.addEventListener("loadeddata", function() {
+        // set timeer
+        self.countDown = Math.floor(this.duration);
+        self.countBack();
+       });
     });
   }
 
-  submitAnswers() {
-    this.question.answers.forEach(answer => console.log(answer));
+
+  countBack() {
+    const source = interval(1000).subscribe(i => {
+      this.countDown--;
+    });
+
+    if (this.countDown <= 0 ) {
+      source.unsubscribe();
+      clearInterval(source);
+
+    }
   }
 
-  answerClicked(answer) {
-    console.log(answer);
+  submitAnswers() {
+    this.gameService.getRecentGame()
+      .pipe(flatMap(game => this.answerService.submitAnswers(this.answersIds, this.question.id, game.id)))
+      .subscribe(response => console.log(response));
+}
+
+  updateArrayOfAnswers(value: any[]): void {
+    this.answersIds = value;
+  }
+
+
+  ngOnDestroy() {
+    if(this.audio) {
+      this.audio.pause();
+      this.audio = null;
+    }
   }
 }
