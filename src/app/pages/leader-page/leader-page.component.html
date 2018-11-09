@@ -1,17 +1,14 @@
-          <div nz-row [nzGutter]="8">
-              <div nz-col [nzSpan]="8">
-                <nz-card nzTitle="TeamA">
-                    <p>Points: 1200</p>
-                  </nz-card>
-              </div>
-              <div nz-col [nzSpan]="8">
-                <nz-card nzTitle="TeamB">
-                    <p>Points: -200</p>
-                  </nz-card>
-              </div>
-              <div nz-col [nzSpan]="8">
-                <nz-card nzTitle="TeamC">
-                    <p>Points: 3500</p>
-                  </nz-card>
-              </div>
-            </div>
+ <nz-table #filterTable [nzData]="displayData">
+      <thead (nzSortChange)="sort($event)" nzSingleSort>
+        <tr>
+          <th>Team</th>
+          <th nzShowSort nzSortKey="score">Points</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let team of filterTable.data">
+          <td>{{team.name}}</td>
+          <td>{{team.score}}</td>
+        </tr>
+      </tbody>
+    </nz-table>
