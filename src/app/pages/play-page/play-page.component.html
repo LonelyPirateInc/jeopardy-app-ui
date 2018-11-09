@@ -3,14 +3,24 @@
     <div class="question-text">{{ question.questionText }}</div>
   </div>
   <h2>{{countDown}}</h2>
+  <h1>{{songName}}</h1>
 
-  <nz-checkbox-wrapper style="width: 100%;" (nzOnChange)="updateArrayOfAnswers($event)">
-      <div nz-row class="answers-wrapper" *ngFor="let answer of question.answers">
-          <div nz-col nzSpan="24"><label nz-checkbox nzValue="{{answer.id}}">{{ answer.answerText }}</label></div>
-      </div>
-  </nz-checkbox-wrapper>
+<div>
+    <button nz-button nzType="primary" *ngIf="!showAnswers" (click)="showQuestionAnswers()"  nzBlock>Show Answers</button>
+
 </div>
-<button nz-button nzType="primary" (click)="submitAnswers()"  nzBlock>Submit</button>
+<div *ngIf="showAnswers">
+    <nz-checkbox-wrapper style="width: 100%;" (nzOnChange)="updateArrayOfAnswers($event)">
+        <div nz-row class="answers-wrapper" *ngFor="let answer of question.answers">
+            <div nz-col nzSpan="24"><label nz-checkbox nzValue="{{answer.id}}">{{ answer.answerText }}</label></div>
+        </div>
+    </nz-checkbox-wrapper>
+</div>
+
+<button class="play-page-button" nz-button nzType="primary" *ngIf="showAnswers" (click)="startMusic()"  nzBlock>Start Music</button>
+
+</div>
+<button class="play-page-button" nz-button nzType="primary" *ngIf="showSubmitAnswersButton" (click)="submitAnswers()"  nzBlock>Submit</button>
 <ng-template #loading>
   Loading stuff...
 </ng-template>
