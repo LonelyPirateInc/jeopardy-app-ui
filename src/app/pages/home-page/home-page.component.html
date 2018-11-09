@@ -1,43 +1,13 @@
 <nz-layout>
-  <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzWidth]="width" [nzReverseArrow]="isReverseArrow">
-    <div class="logo">
+  <nz-content style="margin:0 16px;">
+    <div class="host-controls">
+      <button><a class="menu-item">Gameboard</a></button>
+      <button><a class="menu-item">Leaderboard</a></button>
+      <button><a class="menu-item">Teams</a></button>
+      <button><a class="menu-item">Reset Game</a></button>
     </div>
-    <ul nz-menu [nzTheme]="'dark'" [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">
-      <li nz-menu-item>
-        <a routerLink="/" routerLinkActive="router-link-active" >
-          <span title><i nz-icon type="user"></i>
-          <span class="nav-text">Gameboard</span></span>
-        </a>
-      </li>
-      <li nz-menu-item>
-        <a routerLink="/leadership" >
-          <span title><i nz-icon type="user"></i>
-          <span class="nav-text">Leaderboard</span></span>
-        </a>
-      </li>
-      <!-- <li nz-menu-item>
-        <a [routerLink]="['/question']"></a>
-        <span title><i nz-icon type="user"></i>
-          <span class="nav-text">Questions</span></span>
-      </li> -->
-      <li nz-menu-item>
-        <a routerLink="/teams">
-          <span title><i nz-icon type="user"></i>
-          <span class="nav-text">Teams</span></span>
-        </a>
-      </li>
-    </ul>
-  </nz-sider>
-  <nz-layout>
-    <nz-header style="background: #fff; padding:0;"></nz-header>
-    <nz-content style="margin:0 16px;">
-      <nz-breadcrumb style="margin:16px 0;">
-        <nz-breadcrumb-item>Gameboard</nz-breadcrumb-item>
-      </nz-breadcrumb>
-      <div style="padding:24px; background: #fff; min-height: 360px;">
-        <router-outlet></router-outlet>
-      </div>
-    </nz-content>
-    <nz-footer style="text-align: center;">some footer</nz-footer>
-  </nz-layout>
+    <div style="padding:24px; background: #000000; min-height: 360px;">
+      <router-outlet></router-outlet>
+    </div>
+  </nz-content>
 </nz-layout>

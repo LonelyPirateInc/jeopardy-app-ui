@@ -44,9 +44,11 @@ export class TeamPageComponent implements OnInit {
 
   public createTeam(name: string): void {
       this.teamService.createTeam(name)
-        .pipe(flatMap(data =>  this.handleModalCancel()))
         .pipe(flatMap(() => this.teamService.getAllTeams()))
-        .subscribe(teams => this.teams = teams);
+        .subscribe(teams => {
+          this.teams = teams;
+          this.handleModalCancel();
+        });
   }
 
 
