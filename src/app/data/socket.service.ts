@@ -9,6 +9,8 @@ import * as io from 'socket.io-client';
 export class SocketService {
   public socket: SocketIOClient.Socket;
   public socketConnectionSubject = new Subject<boolean>();
+  private subject = new Subject<any>();
+
   constructor() { }
   setupConnection(socketConfig?: any): void {
     const configuration = socketConfig;
@@ -25,6 +27,22 @@ export class SocketService {
     this.socket.on('events', (data) => {
       console.log(data);
     });
+
+    this.socket.on('showAnswers', (data) => {
+      console.log("showAnswers");
+      this.sendMessage('showAnswers');
+      // emit 
+    });
+
+  }
+
+
+  sendMessage(message: string) {
+    this.subject.next({ type: message });
+  }
+
+  getMessage(): Observable<any> {
+    return this.subject.asObservable();
   }
 
   sendQuestionSelectEvent(question: any): void {

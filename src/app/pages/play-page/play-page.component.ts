@@ -6,6 +6,7 @@ import { of, forkJoin, interval, Observable } from 'rxjs';
 import { map, mergeMap, filter, flatMap } from 'rxjs/operators';
 import { AnswerService } from 'src/app/data/answer/answer.service';
 import { GameService } from '../../data/game/game.service';
+import { SocketService } from '../../data/socket.service';
 
 @Component({
   selector: 'app-play-page',
@@ -19,14 +20,23 @@ export class PlayPageComponent implements OnInit, OnDestroy {
   answers = [];
   audio: any;
   countDown: any;
+  subscription: Subscription;
+
 
   constructor(private route: ActivatedRoute,
               private questionService: QuestionService,
               private answerService: AnswerService,
               private gameService: GameService,
+              private socketService: SocketService,
     ) { }
 
   ngOnInit() {
+
+    this.subscription = this.socketService.getMessage().subscribe(message => this.typeOfMessage(message));
+
+
+
+
     from(this.route.paramMap).pipe(flatMap((params) => {
       const questionId = params.get('questionId');
       return forkJoin(this.questionService.getQuestionById(questionId));
@@ -45,6 +55,20 @@ export class PlayPageComponent implements OnInit, OnDestroy {
         self.countBack();
        });
     });
+  }
+
+
+  typeOfMessage(message) {
+    switch(message.type) {
+      case 'showQuestion':
+          break;
+      case 'showAnswers':
+          break;
+      case 'musicStart':
+          break;
+      default:
+            return;
+  }
   }
 
 
