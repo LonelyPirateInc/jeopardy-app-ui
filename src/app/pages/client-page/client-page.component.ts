@@ -55,14 +55,14 @@ export class ClientPageComponent implements OnInit, OnDestroy {
   }
 
 
+
   countBack() {
     const source = interval(1000).subscribe(i => {
       this.countDown--;
+      if (this.countDown <= 0 ) {
+        source.unsubscribe();
+      }
     });
-
-    if (this.countDown <= 0) {
-      source.unsubscribe();
-    }
   }
 
   getAnswers() {
@@ -92,6 +92,10 @@ export class ClientPageComponent implements OnInit, OnDestroy {
   }
 
   startMusic() {
+    if (this.audio) {
+      this.audio.pause();
+      this.audio = null;
+    }
     this.audio = new Audio();
     this.audio.src = `../../../assets/sound/${this.question.musicNamePath}`;
     this.songName = this.question.musicName;
