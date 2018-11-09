@@ -1,19 +1,15 @@
 <nz-layout>
-    <nz-sider [nzWidth]="200" style="background:#000000">
-        <div class="host-controls">
-            <button><a class="menu-item" routerLink="/" routerLinkActive="router-link-active">Gameboard</a></button>
-            <button><a class="menu-item" routerLink="/leadership">Leaderboard</a></button>
-            <button><a class="menu-item" routerLink="/teams">Teams</a></button>
-            <button><a class="menu-item" >Reset Game</a></button>
-          </div>
-    </nz-sider>
-    <nz-layout>
-        <nz-content style="margin:0 16px;">
-
-            <div style="margin:24px; background: #000000; min-height: 360px;">
-              <router-outlet></router-outlet>
-            </div>
-          </nz-content>
-    </nz-layout>
-
+  <nz-content style="margin:0 16px;">
+  <div class="host-controls">
+    <button><a routerLink="/" class="menu-item">Gameboard</a></button>
+    <button><a routerLink="/leadership" class="menu-item">Leaderboard</a></button>
+    <button><a routerLink="/teams" class="menu-item">Teams</a></button>
+    <button><a class="menu-item">Reset Game</a></button>
+  </div>
+  <nz-layout>
+    <nz-content style="margin:0 16px;">
+    <div style="padding:24px; background: #000000; min-height: 360px;">
+      <router-outlet></router-outlet>
+    </div>
+  </nz-content>
 </nz-layout>
