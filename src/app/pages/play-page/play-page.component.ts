@@ -22,6 +22,7 @@ export class PlayPageComponent implements OnInit, OnDestroy {
   songName: string;
   showAnswers = false;
   showSubmitAnswersButton = true;
+  disableStartMusicButton = false;
 
   constructor(private route: ActivatedRoute,
               private questionService: QuestionService,
@@ -43,11 +44,10 @@ export class PlayPageComponent implements OnInit, OnDestroy {
   countBack() {
     const source = interval(1000).subscribe(i => {
       this.countDown--;
+      if (this.countDown <= 0 ) {
+        source.unsubscribe();
+      }
     });
-
-    if (this.countDown <= 0 ) {
-      source.unsubscribe();
-    }
   }
 
   getAnswers() {
@@ -77,6 +77,10 @@ export class PlayPageComponent implements OnInit, OnDestroy {
   }
 
   startMusic() {
+    if (this.audio) {
+      this.audio.pause();
+      this.audio = null;
+    }
     this.audio = new Audio();
     this.audio.src = `../../../assets/sound/${this.question.musicNamePath}`;
     this.songName = this.question.musicName;
@@ -88,11 +92,13 @@ export class PlayPageComponent implements OnInit, OnDestroy {
       self.countDown = Math.floor(this.duration);
       self.countBack();
      });
+
+    this.disableStartMusicButton = true;
   }
 
 
   ngOnDestroy() {
-    if(this.audio) {
+    if (this.audio) {
       this.audio.pause();
       this.audio = null;
     }
