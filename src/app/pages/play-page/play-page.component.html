@@ -1,6 +1,6 @@
 <div class="play-page-wrapper" *ngIf="question; else loading">
   <div class="question-wrapper">
-    <div class="question-text">{{ question.questionText }}</div>
+    <div class="question-text" style="color: white">{{ question.questionText }}</div>
   </div>
   <h2>{{countDown}}</h2>
   <h1>{{songName}}</h1>
@@ -12,7 +12,7 @@
 <div *ngIf="showAnswers">
     <nz-checkbox-wrapper style="width: 100%;" (nzOnChange)="updateArrayOfAnswers($event)">
         <div nz-row class="answers-wrapper" *ngFor="let answer of question.answers">
-            <div nz-col nzSpan="24"><label nz-checkbox nzValue="{{answer.id}}">{{ answer.answerText }}</label></div>
+            <div nz-col nzSpan="24"><label nz-checkbox nzValue="{{answer.id}}" style="color: white">{{ answer.answerText }}</label></div>
         </div>
     </nz-checkbox-wrapper>
 </div>
