@@ -13,6 +13,11 @@ export class SocketService {
   setupConnection(socketConfig?: any): void {
     const configuration = socketConfig;
     this.socket = io('http://127.0.0.1:8083', { multiplex: true });
+    this.socket.on('connect', () => {
+      console.log('connected...');
+    });
+
+
     this.socket.emit('events', { test: 'testing' });
     this.socket.on('events', (data) => {
       console.log('connecting...');
