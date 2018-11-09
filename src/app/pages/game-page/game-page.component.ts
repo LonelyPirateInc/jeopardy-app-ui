@@ -8,6 +8,7 @@ import { of, forkJoin } from 'rxjs';
 import * as sortyBy from 'lodash/sortBy';
 import * as groupBy from 'lodash/groupBy';
 import { Router } from '@angular/router';
+import { SocketService } from 'src/app/data/socket.service';
 
 @Component({
   selector: 'app-game-page',
@@ -28,7 +29,8 @@ export class GamePageComponent implements OnInit {
   constructor(
     private gameService: GameService,
     private questionService: QuestionService,
-    private router: Router
+    private router: Router,
+    private socketService: SocketService,
   ) { }
 
   ngOnInit() {
@@ -89,6 +91,7 @@ export class GamePageComponent implements OnInit {
 
   public showQuestion(question: any): void {
     const playUrl = '/play/';
+    this.socketService.socket.emit('showQuestion', question);
     this.router.navigate([playUrl, question.id]);
   }
 
