@@ -35,7 +35,12 @@ export class PlayPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.subscription = this.socketService.getMessage().subscribe(message => this.typeOfMessage(message));
+    this.subscription = this.socketService.getMessage().subscribe(message => {
+      console.log(message);
+      this.typeOfMessage(message);
+    });
+
+    console.log("sub", this.subscription);
 
 
 
@@ -51,10 +56,12 @@ export class PlayPageComponent implements OnInit, OnDestroy {
 
 
   typeOfMessage(message) {
-    switch(message.type) {
+    console.log("here");
+    switch (message.type) {
       case 'showQuestion':
           break;
       case 'showAnswers':
+        this.showQuestionAnswers();
           break;
       case 'musicStart':
           break;
@@ -96,8 +103,12 @@ export class PlayPageComponent implements OnInit, OnDestroy {
     this.answersIds = value;
   }
 
-  showQuestionAnswers() {
+  showQuestionAnswers(hostClicked = false) {
     this.showAnswers = true;
+
+    if (!hostClicked) {
+      this.socketService.emitMessage("showAnswers");
+    }
   }
 
   startMusic() {

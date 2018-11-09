@@ -15,34 +15,52 @@ export class SocketService {
   setupConnection(socketConfig?: any): void {
     const configuration = socketConfig;
     this.socket = io('http://127.0.0.1:8083', { multiplex: true });
-    this.socket.on('connect', () => {
-      console.log('connected...');
-    });
+    // this.socket.on('connect', () => {
+    //   console.log('connected...');
+    // });
 
 
     this.socket.emit('events', { test: 'testing' });
-    this.socket.on('events', (data) => {
-      console.log('connecting...');
-      console.log(data);
-    });
+    // this.socket.on('events', (data) => {
+
+    // });
     this.socket.on('questionSelected', (data) => {
       console.log(data);
     });
 
     this.socket.on('events', (data) => {
+      console.log('connecting...');
       console.log(data);
+      this.sendMessage('events');
     });
 
-    this.socket.on('showAnswers', (data) => {
+    this.socket.on('showAnswers', () => {
       console.log("showAnswers");
       this.sendMessage('showAnswers');
-      // emit 
+    });
+
+
+    this.socket.on('showQuestion', () => {
+      console.log("showQuestion");
+      this.sendMessage('showQuestion');
+    });
+
+
+    this.socket.on('musicStart', () => {
+      console.log("musicStart");
+      this.sendMessage('musicStart');
     });
 
   }
 
 
+  emitMessage(message) {
+    this.socket.emit(message, { event: message, message });
+  }
+
+
   sendMessage(message: string) {
+    console.log("message");
     this.subject.next({ type: message });
   }
 
