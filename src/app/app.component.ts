@@ -9,20 +9,9 @@ import { SocketService } from './data/socket.service';
 export class AppComponent implements OnInit {
   title = 'jeopardy-app-ui';
 
-
-  constructor(
-    private socketService: SocketService,
-  ){
-
-  }
+  constructor(private socketService: SocketService) { }
 
   ngOnInit(): void {
-    const socket = this.socketService.setupConnection();
-    socket.on('connect', () => {
-      console.log('connected...');
-
-      socket.emit('events', { test: 'test' });
-    });
-
+    this.socketService.setupConnection();
   }
 }

@@ -43,6 +43,12 @@ ul {
   overflow-wrap: break-word;
 }
 
+
+.disabled {
+  background: grey;
+  pointer-events: none;
+}
+
 @keyframes float {
   0% {
     box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);

@@ -22,6 +22,9 @@ export class PlayPageComponent implements OnInit, OnDestroy {
   countDown: any;
   subscription: Subscription;
 
+  songName: string;
+  showAnswers = false;
+  showSubmitAnswersButton = true;
 
   constructor(private route: ActivatedRoute,
               private questionService: QuestionService,
@@ -43,17 +46,6 @@ export class PlayPageComponent implements OnInit, OnDestroy {
     })).subscribe((question: [any]) => {
       this.question = question[0];
       console.log(this.question);
-      this.audio = new Audio();
-      this.audio.src = `../../../assets/sound/unitedStates2020.mp3`;
-      // this.audio.src = `../../../assets/sound/${this.question.id}.mp3`;
-      this.audio.load();
-      this.audio.play();
-      const self = this;
-      this.audio.addEventListener("loadeddata", function() {
-        // set timeer
-        self.countDown = Math.floor(this.duration);
-        self.countBack();
-       });
     });
   }
 
@@ -84,22 +76,42 @@ export class PlayPageComponent implements OnInit, OnDestroy {
 
   getAnswers() {
     this.question.answers.forEach(answer => this.answersIds.forEach(answerId => { if (answer.id === answerId) {this.answers.push(answer)} }));
-    // this.answers = this.question.answers.filter(answer => this.answersIds.filter(answerId => answer.id === answerId ));
-    // console.log("answers" , this.answers);
   }
 
 
   submitAnswers() {
+    this.answers = [];
     // get answers object based on answer ids 
     this.getAnswers();
 
     this.gameService.getRecentGame()
-      .pipe(flatMap(game => this.answerService.submitAnswers(this.answersIds, this.question.id, game.id)))
-      .subscribe(response => console.log(response));
-}
+      .pipe(flatMap(game => this.answerService.submitAnswers(this.answers, this.question.id, game.id)))
+      .subscribe(response => {
+        console.log(response);
+        this.showSubmitAnswersButton = false;
+      });
+  }
 
   updateArrayOfAnswers(value: any[]): void {
     this.answersIds = value;
+  }
+
+  showQuestionAnswers() {
+    this.showAnswers = true;
+  }
+
+  startMusic() {
+    this.audio = new Audio();
+    this.audio.src = `../../../assets/sound/${this.question.musicNamePath}`;
+    this.songName = this.question.musicName;
+    this.audio.load();
+    this.audio.play();
+    const self = this;
+    this.audio.addEventListener("loadeddata", function() {
+      // set timeer
+      self.countDown = Math.floor(this.duration);
+      self.countBack();
+     });
   }
 
 
