@@ -1,3 +1,19 @@
-<p>
-  team-page works!
-</p>
+<button nz-button nzType="primary" (click)="showModal()">New Team</button>
+<nz-modal 
+  [(nzVisible)]="isVisible" 
+  nzTitle="Create Team" 
+  (nzOnCancel)="handleModalCancel()" 
+  (nzOnOk)="handleModalSubmit()">
+  <input 
+    nz-input 
+    placeholder="Please enter a team name" 
+    [(ngModel)]="newTeamName">
+</nz-modal>
+
+<div *ngIf="teams">
+  <div *ngFor="let team of teams">
+      <nz-card style="width:200px" nzTitle="Team">
+          <p>{{team.name}}</p>
+        </nz-card>
+  </div>
+</div>
