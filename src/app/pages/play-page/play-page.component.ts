@@ -6,6 +6,7 @@ import { of, forkJoin, interval, Observable } from 'rxjs';
 import { map, mergeMap, filter, flatMap } from 'rxjs/operators';
 import { AnswerService } from 'src/app/data/answer/answer.service';
 import { GameService } from '../../data/game/game.service';
+import { SocketService } from 'src/app/data/socket.service';
 
 @Component({
   selector: 'app-play-page',
@@ -24,11 +25,13 @@ export class PlayPageComponent implements OnInit, OnDestroy {
   showSubmitAnswersButton = true;
   disableStartMusicButton = false;
 
-  constructor(private route: ActivatedRoute,
-              private questionService: QuestionService,
-              private answerService: AnswerService,
-              private gameService: GameService,
-    ) { }
+  constructor(
+    private route: ActivatedRoute,
+    private questionService: QuestionService,
+    private answerService: AnswerService,
+    private gameService: GameService,
+    private socketService: SocketService,
+  ) { }
 
   ngOnInit() {
     from(this.route.paramMap).pipe(flatMap((params) => {
@@ -74,6 +77,7 @@ export class PlayPageComponent implements OnInit, OnDestroy {
 
   showQuestionAnswers() {
     this.showAnswers = true;
+    this.socketService.socket.emit('showAnswers', this.question.answers);
   }
 
   startMusic() {
