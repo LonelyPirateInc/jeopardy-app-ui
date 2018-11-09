@@ -1,3 +1,29 @@
+.play-page-container {
+    background-color: white;
+    height: 800px;
+    border-radius: 5px;
+    padding: 20px;
+}
+
 .play-page-button {
     margin-top: 20px;
+}
+
+.question-text {
+    font-size: 30px;
+    font-weight: 600;
+}
+
+ul {
+    padding: 0;
+    list-style: none;
+    // list-style-type: upper-alpha;
+    li {
+        color: white;
+        font-size: 20px;
+        font-weight: 600;
+        padding: 15px;
+        border-radius: 50px;
+        background-color: cadetblue;
+    }
 }

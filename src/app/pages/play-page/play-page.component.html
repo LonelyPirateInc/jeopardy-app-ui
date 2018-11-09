@@ -1,28 +1,25 @@
-<h2 style="color: white">{{countDown}}</h2>
-<div class="play-page-wrapper" *ngIf="question; else loading">
-  <div class="question-wrapper">
-    <div class="question-text" style="color: white">{{ question.questionText }}</div>   
-
-  </div>
-  <h1 style="color: white; float:right;">{{songName}}</h1>
-
-<div>
-    <button nz-button nzType="primary" *ngIf="!showAnswers" (click)="showQuestionAnswers()"  nzBlock>Show Answers</button>
-
-</div>
-<div *ngIf="showAnswers">
-    <nz-checkbox-wrapper style="width: 100%;" (nzOnChange)="updateArrayOfAnswers($event)">
-        <div nz-row class="answers-wrapper" *ngFor="let answer of question.answers">
-            <!-- <div nz-col nzSpan="24"><label nz-checkbox nzValue="{{answer.id}}" style="color: white">{{ answer.answerText }}</label></div> -->
-            <div nz-col nzSpan="24">{{ answer.answerText }}</div>
+<div class="play-page-container">
+    <div class="play-page-wrapper" *ngIf="question; else loading">
+        <div class="question-wrapper">
+            <div class="question-text">{{ question.questionText }}</div>
+            <h2 style="float: right;">{{songName}}</h2>
+            <h2>{{countDown}}</h2>
         </div>
-    </nz-checkbox-wrapper>
-</div>
+        <div>
+            <button nz-button nzType="primary" *ngIf="!showAnswers" (click)="showQuestionAnswers()" nzBlock>Show Answers</button>
 
-<button class="play-page-button" nz-button nzType="primary" *ngIf="showAnswers" [disabled]="disableStartMusicButton" (click)="startMusic()"  nzBlock>Start Music</button>
+        </div>
+        <div *ngIf="showAnswers">
+            <ul *ngFor="let answer of question.answers">
+                <li class="answer-item">{{ answer.answerText }}</li>
+            </ul>
+        </div>
 
+        <button class="play-page-button" nz-button nzType="primary" *ngIf="showAnswers" [disabled]="disableStartMusicButton"
+            (click)="startMusic()" nzBlock>Start Music</button>
+
+    </div>
+    <ng-template #loading>
+        Loading stuff...
+    </ng-template>
 </div>
-<!-- <button class="play-page-button" nz-button nzType="primary" *ngIf="showSubmitAnswersButton" (click)="submitAnswers()"  nzBlock>Submit</button> -->
-<ng-template #loading>
-  Loading stuff...
-</ng-template>
