@@ -44,11 +44,10 @@ export class PlayPageComponent implements OnInit, OnDestroy {
   countBack() {
     const source = interval(1000).subscribe(i => {
       this.countDown--;
+      if (this.countDown <= 0 ) {
+        source.unsubscribe();
+      }
     });
-
-    if (this.countDown <= 0 ) {
-      source.unsubscribe();
-    }
   }
 
   getAnswers() {
