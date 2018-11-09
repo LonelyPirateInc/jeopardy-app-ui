@@ -1,0 +1,18 @@
+.center-screen {
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+  }
+
+  .wrapper {
+    background: rgb(190, 200, 200);
+    padding: 26px 16px 16px;
+  }
+
+.btn {
+    margin: 20px;
+}

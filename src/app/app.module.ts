@@ -17,6 +17,7 @@ import { LeaderPageComponent } from './pages/leader-page/leader-page.component';
 import { TeamPageComponent } from './pages/team-page/team-page.component';
 import { PlayPageComponent } from './pages/play-page/play-page.component';
 import { ClientPageComponent } from './pages/client-page/client-page.component';
+import { UserCreatePageComponent } from './pages/user-create-page/user-create-page.component';
 
 registerLocaleData(en);
 
@@ -29,6 +30,7 @@ registerLocaleData(en);
     TeamPageComponent,
     PlayPageComponent,
     ClientPageComponent,
+    UserCreatePageComponent,
   ],
   imports: [
     SharedModule,
