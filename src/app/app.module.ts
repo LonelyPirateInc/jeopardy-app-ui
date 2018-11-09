@@ -16,6 +16,7 @@ import { DataModule } from './data/data.module';
 import { LeaderPageComponent } from './pages/leader-page/leader-page.component';
 import { TeamPageComponent } from './pages/team-page/team-page.component';
 import { PlayPageComponent } from './pages/play-page/play-page.component';
+import { ClientPageComponent } from './pages/client-page/client-page.component';
 
 registerLocaleData(en);
 
@@ -27,6 +28,7 @@ registerLocaleData(en);
     LeaderPageComponent,
     TeamPageComponent,
     PlayPageComponent,
+    ClientPageComponent,
   ],
   imports: [
     SharedModule,

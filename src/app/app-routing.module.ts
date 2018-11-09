@@ -4,6 +4,7 @@ import { GamePageComponent } from './pages/game-page/game-page.component';
 import { LeaderPageComponent } from './pages/leader-page/leader-page.component';
 import { TeamPageComponent } from './pages/team-page/team-page.component';
 import { PlayPageComponent } from './pages/play-page/play-page.component';
+import { ClientPageComponent } from './pages/client-page/client-page.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'play/:questionId',
     component: PlayPageComponent
+  },
+  {
+    path: 'client',
+    component: ClientPageComponent
   }
 ];
 

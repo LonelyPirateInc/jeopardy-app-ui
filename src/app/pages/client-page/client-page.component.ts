@@ -9,11 +9,11 @@ import { GameService } from '../../data/game/game.service';
 import { SocketService } from 'src/app/data/socket.service';
 
 @Component({
-  selector: 'app-play-page',
-  templateUrl: './play-page.component.html',
-  styleUrls: ['./play-page.component.scss']
+  selector: 'app-client-page',
+  templateUrl: './client-page.component.html',
+  styleUrls: ['./client-page.component.scss']
 })
-export class PlayPageComponent implements OnInit, OnDestroy {
+export class ClientPageComponent implements OnInit, OnDestroy {
   question: any;
   questionSelectionSubscription: Subscription;
   answersIds = [];
@@ -23,7 +23,7 @@ export class PlayPageComponent implements OnInit, OnDestroy {
   songName: string;
   showAnswers = false;
   showSubmitAnswersButton = true;
-  disableStartMusicButton = false;
+  canPlay: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,12 +34,23 @@ export class PlayPageComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    from(this.route.paramMap).pipe(flatMap((params) => {
-      const questionId = params.get('questionId');
-      return forkJoin(this.questionService.getQuestionById(questionId));
-    })).subscribe((question: [any]) => {
-      this.question = question[0];
-      console.log(this.question);
+    this.subscribeToSockets();
+  }
+
+  subscribeToSockets(): void {
+    this.socketService.socket.on('showQuestion', (question: any) => {
+      console.log('showQuestion????');
+      this.question = question;
+    });
+
+    this.socketService.socket.on('showAnswers', (question: any) => {
+      console.log('showAnswers????');
+      this.showAnswers = true;
+    });
+
+    this.socketService.socket.on('musicStart', (question: any) => {
+      console.log('musicStart????');
+      this.canPlay = true;
     });
   }
 
@@ -47,14 +58,15 @@ export class PlayPageComponent implements OnInit, OnDestroy {
   countBack() {
     const source = interval(1000).subscribe(i => {
       this.countDown--;
-      if (this.countDown <= 0 ) {
-        source.unsubscribe();
-      }
     });
+
+    if (this.countDown <= 0) {
+      source.unsubscribe();
+    }
   }
 
   getAnswers() {
-    this.question.answers.forEach(answer => this.answersIds.forEach(answerId => { if (answer.id === answerId) {this.answers.push(answer)} }));
+    this.question.answers.forEach(answer => this.answersIds.forEach(answerId => { if (answer.id === answerId) { this.answers.push(answer) } }));
   }
 
 
@@ -77,27 +89,20 @@ export class PlayPageComponent implements OnInit, OnDestroy {
 
   showQuestionAnswers() {
     this.showAnswers = true;
-    this.socketService.socket.emit('showAnswers', this.question.answers);
   }
 
   startMusic() {
-    if (this.audio) {
-      this.audio.pause();
-      this.audio = null;
-    }
     this.audio = new Audio();
     this.audio.src = `../../../assets/sound/${this.question.musicNamePath}`;
     this.songName = this.question.musicName;
     this.audio.load();
     this.audio.play();
     const self = this;
-    this.audio.addEventListener("loadeddata", function() {
+    this.audio.addEventListener("loadeddata", function () {
       // set timeer
       self.countDown = Math.floor(this.duration);
       self.countBack();
-     });
-
-    this.disableStartMusicButton = true;
+    });
   }
 
 
@@ -108,3 +113,31 @@ export class PlayPageComponent implements OnInit, OnDestroy {
     }
   }
 }
+
+
+// import { Component, OnInit } from '@angular/core';
+// import { SocketService } from 'src/app/data/socket.service';
+
+// @Component({
+//   selector: 'app-client-page',
+//   templateUrl: './client-page.component.html',
+//   styleUrls: ['./client-page.component.scss']
+// })
+// export class ClientPageComponent implements OnInit {
+//   question: any;
+//   constructor(private socketService: SocketService) { }
+
+//   ngOnInit() {
+//   }
+
+//   subscribeToSockets(): void {
+//     this.socketService.socket.on('showQuestion', (question: any) => {
+//       this.question = question;
+//     });
+
+//     this.socketService.socket.on('showAnswers', (question: any) => {
+//       this.question = question;
+//     });
+//   }
+
+// }
