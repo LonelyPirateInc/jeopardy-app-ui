@@ -29,4 +29,19 @@ export class UserService {
     const user = JSON.parse(localStorage.getItem('user'));
     return user;
   }
+
+  public authenticate(username: string, password: string): Observable<any> {
+    return this.http
+      .post(`http://192.168.2.62:3000/auth/login`, { username, password })
+      .pipe(map(response => {
+        if (response['success']) {
+          console.log(response);
+          localStorage.setItem('user', JSON.stringify(response['payload']));
+          return response['payload'];
+        }
+      }))
+      .pipe(catchError(err => {
+        return throwError(err);
+      }));
+  }
 }
