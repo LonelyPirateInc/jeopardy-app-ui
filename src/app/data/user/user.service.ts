@@ -13,16 +13,16 @@ export class UserService {
 
   public createUser(username: string): Observable<any> {
     return this.http
-      .post(`http://127.0.0.1:3000/user/register`, { username })
+      .post(`http://192.168.2.62:3000/user/register`, { username })
       .pipe(map(response => {
-        if (response['success']) {
-          localStorage.setItem('user', JSON.stringify(response['payload']));
-          return response['payload'];
-        }
-      }))
+          if (response["success"]) {
+            localStorage.setItem("user", JSON.stringify(response["payload"]));
+            return response["payload"];
+          }
+        }))
       .pipe(catchError(err => {
-        return throwError(err);
-      }));
+          return throwError(err);
+        }));
   }
 
   public checkUserExist(): any {

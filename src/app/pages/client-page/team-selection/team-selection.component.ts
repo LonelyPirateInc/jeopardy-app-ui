@@ -39,9 +39,7 @@ export class TeamSelectionComponent implements OnInit {
 
   checkUserAlreadyExist(): boolean {
     const user = this.userService.checkUserExist();
-    console.log("???", user);
     if (user && user.userType === "player") {
-      console.log("????");
       this.router.navigate(["client/play"]);
     }
 
@@ -50,5 +48,9 @@ export class TeamSelectionComponent implements OnInit {
 
   handleSelect(team: any): void {
     localStorage.setItem("team", JSON.stringify(team));
+  }
+
+  tap() {
+    console.log('tapping...');
   }
 }

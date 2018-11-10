@@ -19,7 +19,7 @@ export class AnswerService {
 
     console.log(team);
     return this.http
-      .post(`http://127.0.0.1:3000/game/play/${gameId}/${questionId}`, params)
+      .post(`http://192.168.2.62:3000/game/play/${gameId}/${questionId}`, params)
       .pipe(map(response => response['payload']))
       .pipe(catchError(err => {
         return throwError(err);

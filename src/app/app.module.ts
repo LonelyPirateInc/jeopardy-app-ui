@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -34,7 +34,7 @@ registerLocaleData(en);
     ClientPageComponent,
     UserCreatePageComponent,
     TeamSelectionComponent,
-    ClientPlayComponent,
+    ClientPlayComponent
   ],
   imports: [
     SharedModule,
@@ -46,7 +46,13 @@ registerLocaleData(en);
     HttpClientModule,
     NgZorroAntdModule
   ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }],
+  providers: [
+    { provide: NZ_I18N, useValue: en_US },
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: HammerGestureConfig
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
