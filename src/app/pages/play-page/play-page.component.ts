@@ -22,8 +22,10 @@ export class PlayPageComponent implements OnInit, OnDestroy {
   countDown: any;
   songName: string;
   showAnswers = false;
+  showCorrectAnswersButton = false;
   showSubmitAnswersButton = true;
   disableStartMusicButton = false;
+  alphabets: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,6 +36,7 @@ export class PlayPageComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.alphabets = Array.from({ length: 26 }, (_, i) => String.fromCharCode('A'.charCodeAt(0) + i));
     from(this.route.paramMap).pipe(flatMap((params) => {
       const questionId = params.get('questionId');
       return forkJoin(this.questionService.getQuestionById(questionId));
@@ -48,6 +51,7 @@ export class PlayPageComponent implements OnInit, OnDestroy {
       this.countDown--;
       if (this.countDown <= 0 ) {
         source.unsubscribe();
+        this.showCorrectAnswersButton = true;
       }
     });
   }

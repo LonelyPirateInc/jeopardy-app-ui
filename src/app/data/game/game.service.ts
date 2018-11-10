@@ -14,7 +14,7 @@ export class GameService {
   public createGame(name: string): Observable<any> {
     const game = {name};
     return this.http
-      .post(`http://172.29.0.110:3000/game/create`, { name })
+      .post(`http://192.168.2.62:3000/game/create`, { name })
       .pipe(map(response => response['payload']))
       .pipe(catchError(err => {
         return throwError(err);
@@ -23,7 +23,7 @@ export class GameService {
 
   public getRecentGame(): Observable<any> {
     return this.http
-      .get(`http://172.29.0.110:3000/game`)
+      .get(`http://192.168.2.62:3000/game`)
       .pipe(map(response => response['success'] ? response['payload'] : false))
       .pipe(catchError(err => {
         return throwError(err);
@@ -32,7 +32,7 @@ export class GameService {
 
   public getGameScoreByTeam(gameId: string, teamId: string): Observable<any> {
     return this.http
-      .get(`http://172.29.0.110:3000/game/${gameId}/${teamId}`)
+      .get(`http://192.168.2.62:3000/game/${gameId}/${teamId}`)
       .pipe(map(response => response['success'] ? response['payload'] : false))
       .pipe(catchError(err => {
         return throwError(err);
