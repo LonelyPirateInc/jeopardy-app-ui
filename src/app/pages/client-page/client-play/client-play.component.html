@@ -1,0 +1,29 @@
+<div class="client-play-wrapper">
+  <div class="question-text-package-wrapper">
+    <div class="game-score">Total Score: {{ score }}</div>
+    <div class="game-title">The Gig is Up!!</div>
+      <div class="question-wrapper" *ngIf="question; else loading">
+        <div class="question-text">{{ question.questionText }}</div>
+        <h2>{{countDown}}</h2>
+        <h1>{{songName}}</h1>
+      </div>
+      <ng-template #loading>Wait for the question.</ng-template>
+  </div>
+  <div *ngIf="showAnswers && question">
+    <nz-checkbox-wrapper style="width: 100%;" (nzOnChange)="updateArrayOfAnswers($event)">
+      <div nz-row class="answers-wrapper" *ngFor="let answer of question.answers">
+        <div class="answer-item" nz-col nzSpan="24">
+          <label nz-checkbox nzValue="{{answer.id}}" [nzDisabled]="!canPlay">{{ answer.answerText }}</label>
+        </div>
+      </div>
+    </nz-checkbox-wrapper>
+  </div>
+  <button 
+    class="client-play-submit-button" 
+    nz-button nzType="primary" 
+    *ngIf="canPlay" 
+    (click)="submitAnswers()" 
+    nzBlock>
+    Submit
+  </button>  
+</div>

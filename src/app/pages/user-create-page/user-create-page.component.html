@@ -1,0 +1,10 @@
+<div class="center-screen">
+  <div class="wrapper">
+      <nz-input-group [nzSuffix]="suffixTemplate" [nzPrefix]="prefixTemplate">
+          <input type="text" nz-input placeholder="Enter your username" [(ngModel)]="username">
+      </nz-input-group>
+      <ng-template #prefixTemplate><i nz-icon type="user"></i></ng-template>
+      <ng-template #suffixTemplate><i nz-icon type="close-circle" (click)="username=null" *ngIf="username"></i></ng-template>
+      <button nz-button nzType="primary" class="btn" (click)="createUser()">Submit</button>    
+  </div>
+</div>

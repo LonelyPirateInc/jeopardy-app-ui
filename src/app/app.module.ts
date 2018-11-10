@@ -17,6 +17,9 @@ import { LeaderPageComponent } from './pages/leader-page/leader-page.component';
 import { TeamPageComponent } from './pages/team-page/team-page.component';
 import { PlayPageComponent } from './pages/play-page/play-page.component';
 import { ClientPageComponent } from './pages/client-page/client-page.component';
+import { UserCreatePageComponent } from './pages/user-create-page/user-create-page.component';
+import { TeamSelectionComponent } from './pages/client-page/team-selection/team-selection.component';
+import { ClientPlayComponent } from './pages/client-page/client-play/client-play.component';
 
 registerLocaleData(en);
 
@@ -29,6 +32,9 @@ registerLocaleData(en);
     TeamPageComponent,
     PlayPageComponent,
     ClientPageComponent,
+    UserCreatePageComponent,
+    TeamSelectionComponent,
+    ClientPlayComponent,
   ],
   imports: [
     SharedModule,
@@ -43,4 +49,4 @@ registerLocaleData(en);
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

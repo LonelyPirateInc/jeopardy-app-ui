@@ -11,7 +11,7 @@ export class TeamService {
   constructor(private http: HttpClient) { }
 
   public createTeam(name: string): Observable<any> {
-    console.log("name", name);
+    console.log('name', name);
     return this.http
       .post(`http://127.0.0.1:3000/team/register`, { name })
       .pipe(map(response => response['payload']))

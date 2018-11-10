@@ -1,0 +1,44 @@
+.question-text-package-wrapper {
+  background-color: white;
+  width: 100%;
+  padding: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: fit-content;
+  border-radius: 5px;
+    // border-radius: 3px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.game-title {
+  font-size: 20px;
+  padding-bottom: 5px;
+  text-align: center;
+  font-weight: 600;
+}
+
+nz-content div {
+  height: 100% !important;
+}
+
+.answers-wrapper {
+  // span {
+  //   color: black;
+  // }
+}
+
+.answer-item {
+  padding: 5px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: aliceblue;
+}
+
+.client-play-submit-button {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3) !important;
+  font-weight: 600 !important;
+}
+
+.game-score {
+  text-align: right;
+}

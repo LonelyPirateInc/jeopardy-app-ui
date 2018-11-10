@@ -29,4 +29,13 @@ export class GameService {
         return throwError(err);
       }));
   }
+
+  public getGameScoreByTeam(gameId: string, teamId: string): Observable<any> {
+    return this.http
+      .get(`http://127.0.0.1:3000/game/${gameId}/${teamId}`)
+      .pipe(map(response => response['success'] ? response['payload'] : false))
+      .pipe(catchError(err => {
+        return throwError(err);
+      }));
+  }
 }

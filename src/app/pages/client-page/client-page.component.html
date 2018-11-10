@@ -1,26 +1,3 @@
 <div class="client-page-wrapper">
-  <div class="game-title">The Gig is Up!!</div>
-  <div class="play-page-wrapper" *ngIf="question; else loading">
-    <div class="question-wrapper">
-      <div class="question-text" style="color: white">{{ question.questionText }}</div>
-    </div>
-    <h2>{{countDown}}</h2>
-    <h1>{{songName}}</h1>
-    <div *ngIf="showAnswers">
-      <nz-checkbox-wrapper style="width: 100%;" (nzOnChange)="updateArrayOfAnswers($event)">
-        <div nz-row class="answers-wrapper" *ngFor="let answer of question.answers">
-          <div nz-col nzSpan="24"><label nz-checkbox nzValue="{{answer.id}}" style="color: white" [nzDisabled]="!canPlay">{{ answer.answerText }}</label></div>
-        </div>
-      </nz-checkbox-wrapper>
-    </div>
-    <button 
-      class="play-page-button" 
-      nz-button nzType="primary" 
-      *ngIf="canPlay" 
-      (click)="submitAnswers()" 
-      nzBlock>
-      Submit
-    </button>
-  </div>
-  <ng-template #loading style="color: white">Wait for the question.</ng-template>
+  <router-outlet></router-outlet>
 </div>

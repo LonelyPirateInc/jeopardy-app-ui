@@ -11,9 +11,15 @@ export class AnswerService {
   constructor(private http: HttpClient) { }
 
 
-  public submitAnswers(answers: any[], questionId: string, gameId: string): Observable<any> {
+  public submitAnswers(answers: any[], questionId: string, gameId: string, team: any): Observable<any> {
+    const params = {
+      answers,
+      team
+    };
+
+    console.log(team);
     return this.http
-      .post(`http://127.0.0.1:3000/game/play/${gameId}/${questionId}`, answers)
+      .post(`http://127.0.0.1:3000/game/play/${gameId}/${questionId}`, params)
       .pipe(map(response => response['payload']))
       .pipe(catchError(err => {
         return throwError(err);
