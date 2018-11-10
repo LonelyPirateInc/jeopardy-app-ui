@@ -91,12 +91,12 @@ export class GamePageComponent implements OnInit {
   }
 
   public showQuestion(question: any): void {
-    const playUrl = '/play/';
+    const playUrl = 'host/play/';
     this.router.navigate([playUrl, question.id]);
   }
 
   public showAllIn(): void {
-    const playUrl = '/play/';
+    const playUrl = 'host/play/';
     const question = this.allInCategory[0].questions[0];
     this.router.navigate([playUrl, question.id]);
   }
