@@ -11,13 +11,22 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
 
-  public createUser(userName: string): Observable<any> {
+  public createUser(username: string): Observable<any> {
     return this.http
-      .post(`http://127.0.0.1:3000/user/register`, { userName })
-      .pipe(map(response => response['payload']))
+      .post(`http://127.0.0.1:3000/user/register`, { username })
+      .pipe(map(response => {
+        if (response['success']) {
+          localStorage.setItem('user', JSON.stringify(response['payload']));
+          return response['payload'];
+        }
+      }))
       .pipe(catchError(err => {
         return throwError(err);
       }));
   }
 
+  public checkUserExist(): any {
+    const user = JSON.parse(localStorage.getItem('user'));
+    return user;
+  }
 }

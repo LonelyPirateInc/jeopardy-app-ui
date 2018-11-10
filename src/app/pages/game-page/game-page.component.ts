@@ -45,7 +45,7 @@ export class GamePageComponent implements OnInit {
       const categoriesGrouped = groupBy(categories, category => category.isAllIn);
       this.categories = categoriesGrouped[false];
       this.allInCategory = categoriesGrouped[true];
-
+      this.socketService.socket.emit('gameStart', game);
       this.existsGame = true;
       this.game = game;
     });
@@ -64,13 +64,14 @@ export class GamePageComponent implements OnInit {
       const [categories, game] = data;
       this.questions = game.questions;
       this.sortQuestionsByCategory(this.questions, categories);
-
+      
       const categoriesGrouped = groupBy(categories, category => category.isAllIn);
       this.categories = categoriesGrouped[false];
       this.allInCategory = categoriesGrouped[true];
 
       this.existsGame = true;
       this.game = game;
+      this.socketService.socket.emit('gameStart', game);
       this.handleModalCancel();
     });
   }
@@ -91,7 +92,6 @@ export class GamePageComponent implements OnInit {
 
   public showQuestion(question: any): void {
     const playUrl = '/play/';
-    this.socketService.socket.emit('showQuestion', question);
     this.router.navigate([playUrl, question.id]);
   }
 

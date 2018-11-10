@@ -39,10 +39,9 @@ export class PlayPageComponent implements OnInit, OnDestroy {
       return forkJoin(this.questionService.getQuestionById(questionId));
     })).subscribe((question: [any]) => {
       this.question = question[0];
-      console.log(this.question);
+      this.socketService.socket.emit('showQuestion', this.question);
     });
   }
-
 
   countBack() {
     const source = interval(1000).subscribe(i => {
@@ -54,22 +53,23 @@ export class PlayPageComponent implements OnInit, OnDestroy {
   }
 
   getAnswers() {
-    this.question.answers.forEach(answer => this.answersIds.forEach(answerId => { if (answer.id === answerId) {this.answers.push(answer)} }));
+    this.question.answers.forEach(answer => {
+      this.answersIds.forEach(answerId => { if (answer.id === answerId) { this.answers.push(answer); } });
+    });
   }
 
+  // submitAnswers() {
+  //   this.answers = [];
+  //   // get answers object based on answer ids 
+  //   this.getAnswers();
 
-  submitAnswers() {
-    this.answers = [];
-    // get answers object based on answer ids 
-    this.getAnswers();
-
-    this.gameService.getRecentGame()
-      .pipe(flatMap(game => this.answerService.submitAnswers(this.answers, this.question.id, game.id)))
-      .subscribe(response => {
-        console.log(response);
-        this.showSubmitAnswersButton = false;
-      });
-  }
+  //   this.gameService.getRecentGame()
+  //     .pipe(flatMap(game => this.answerService.submitAnswers(this.answers, this.question.id, game.id)))
+  //     .subscribe(response => {
+  //       console.log(response);
+  //       this.showSubmitAnswersButton = false;
+  //     });
+  // }
 
   updateArrayOfAnswers(value: any[]): void {
     this.answersIds = value;
@@ -91,8 +91,8 @@ export class PlayPageComponent implements OnInit, OnDestroy {
     this.audio.load();
     this.audio.play();
     const self = this;
-    this.audio.addEventListener("loadeddata", function() {
-      // set timeer
+    this.audio.addEventListener('loadeddata', function() {
+      self.socketService.socket.emit('musicStart', this.duration);
       self.countDown = Math.floor(this.duration);
       self.countBack();
      });

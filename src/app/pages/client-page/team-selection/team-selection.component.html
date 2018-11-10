@@ -1,0 +1,15 @@
+<div class="team-selection-wrapper">
+  <div class="team-list-wrapper" *ngIf="teams">
+    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a team" [(ngModel)]="selectedTeam">
+      <nz-option [nzLabel]="team.name" [nzValue]="team" *ngFor="let team of teams"></nz-option>
+    </nz-select>
+  </div>
+  <div class="username-input-wrapper" *ngIf="selectedTeam">
+    <nz-input-group [nzSuffix]="suffixTemplate" [nzPrefix]="prefixTemplate">
+      <input type="text" nz-input placeholder="Enter your username" [(ngModel)]="username">
+    </nz-input-group>
+    <ng-template #prefixTemplate><i nz-icon type="user"></i></ng-template>
+    <ng-template #suffixTemplate><i nz-icon type="close-circle" (click)="username=null" *ngIf="username"></i></ng-template>
+    <button class="user-submit-btn" (click)="createUser()" [disabled]="!username">Submit</button>
+  </div>
+</div>
