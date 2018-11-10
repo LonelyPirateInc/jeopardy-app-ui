@@ -17,8 +17,8 @@ export class TeamService {
       .post(`${this.buildEnvironment.serviceHost}team/register`, { name })
       .pipe(map(response => response['payload']))
       .pipe(catchError(err => {
-        return throwError(err);
-      }));
+          return throwError(err);
+        }));
   }
 
 

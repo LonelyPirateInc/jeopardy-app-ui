@@ -1,14 +1,16 @@
- <nz-table #filterTable [nzData]="displayData">
-      <thead (nzSortChange)="sort($event)" nzSingleSort>
-        <tr>
-          <th>Team</th>
-          <th nzShowSort nzSortKey="score">Points</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let team of filterTable.data">
-          <td>{{team.name}}</td>
-          <td>{{team.score}}</td>
-        </tr>
-      </tbody>
-    </nz-table>
+<div class="leadership-board-wrapper">
+  <nz-table #filterTable [nzData]="displayData">
+    <thead (nzSortChange)="sort($event)" nzSingleSort>
+      <tr>
+        <th>Team</th>
+        <th nzShowSort nzSortKey="score">Points</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let team of filterTable.data">
+        <td>{{team.name}}</td>
+        <td>{{team.score}}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>  

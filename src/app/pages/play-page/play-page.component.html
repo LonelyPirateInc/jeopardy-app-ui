@@ -1,23 +1,34 @@
 <div class="play-page-container">
-    <div class="play-page-wrapper" *ngIf="question; else loading">
-        <div class="question-wrapper">
+    <div class="play-page-wrapper">
+        <div class="question-wrapper" *ngIf="question; else loading">
             <div class="question-text">{{ question.questionText }}</div>
+            <div class="question-controls-wrapper">
+                <button
+                    class="question-control" 
+                    *ngIf="!showAnswers"
+                    (click)="showQuestionAnswers()">
+                    Show Answers
+                </button>
+                <button
+                    class="question-control"
+                    *ngIf="showAnswers"
+                    [disabled]="disableStartMusicButton"
+                    (click)="startMusic()">
+                    Start Music
+                </button>
+                <button 
+                    class="question-control"
+                    *ngIf="showCorrectAnswersButton && !showCorrectAnswersButton"
+                    (click)="startMusic()">
+                    Show Correct Answers
+                </button>
+            </div>
         </div>
-        <div>
-            <button nz-button nzType="primary" *ngIf="!showAnswers" (click)="showQuestionAnswers()" nzBlock>Show Answers</button>
-
-        </div>
-        <div *ngIf="showAnswers">
-            <ul *ngFor="let answer of question.answers">
-                <li class="answer-item">{{ answer.answerText }}</li>
+        <ng-template #loading>Loading the question...</ng-template>
+        <div class="question-answers-wrapper" *ngIf="showAnswers">
+            <ul>
+                <li *ngFor="let answer of question.answers; let i = index" class="answer-item">{{ alphabets[i] }}. {{ answer.answerText }}</li>
             </ul>
         </div>
-
-        <button class="play-page-button" nz-button nzType="primary" *ngIf="showAnswers" [disabled]="disableStartMusicButton"
-            (click)="startMusic()" nzBlock>Start Music</button>
-
     </div>
-    <ng-template #loading>
-        Loading stuff...
-    </ng-template>
 </div>
