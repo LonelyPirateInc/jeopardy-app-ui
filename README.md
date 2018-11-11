@@ -8,10 +8,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 Please ensure that all the users are in the same network.
 
 ## Host UI
-direct to `/host` and type the passcode 1234
+1. direct to `/host` and type the passcode 1234
 
 ## Client UI
-direct to `/client` and create the team first. 
-if the user wish to reset his team setting, he can go to `/client/reset`. This will reset all setting for the client in the ui level.
+1. direct to `/client` and create the team first. 
+2. direct to `/client/reset` if the client user wants to reset the team selection. This will reset all setting for the client in the ui level.
 
 
