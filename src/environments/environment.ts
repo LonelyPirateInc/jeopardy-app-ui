@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  hostAddress: 'http://192.168.2.62',
+  hostAddress: 'http://127.0.0.1',
   endpointPort: 3000,
   socketPort: 8080
 };
