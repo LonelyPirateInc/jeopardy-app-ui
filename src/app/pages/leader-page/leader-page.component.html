@@ -8,24 +8,10 @@
       </tr>
     </thead>
     <tbody>
-        <tr>
-            <td class="table-font-size table-font-bold ">2</td>
-            <td class="table-font-size">Team B</td>
-                    <td class="table-font-size">200</td>
-        </tr>
-        <tr>
-
-                <td class="table-font-size table-font-bold ">2</td>
-        <td class="table-font-size">Team</td>
-        <td class="table-font-size">4000</td>
-      </tr>
-
       <tr *ngFor="let team of filterTable.data; let i = index;">
-        <td class="table-font-size">{{ i + 1}}</td>
+        <td class="table-font-size  table-font-bold">{{ i + 1}}</td>
         <td class="table-font-size">{{team.name}}</td>
         <td class="table-font-size">{{team.point}}</td>
-
-
       </tr>
     </tbody>
   </nz-table>
