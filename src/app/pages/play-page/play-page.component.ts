@@ -9,9 +9,9 @@ import { GameService } from '../../data/game/game.service';
 import { SocketService } from 'src/app/data/socket.service';
 
 @Component({
-  selector: 'app-play-page',
-  templateUrl: './play-page.component.html',
-  styleUrls: ['./play-page.component.scss']
+  selector: "app-play-page",
+  templateUrl: "./play-page.component.html",
+  styleUrls: ["./play-page.component.scss"]
 })
 export class PlayPageComponent implements OnInit, OnDestroy {
   question: any;
@@ -25,6 +25,7 @@ export class PlayPageComponent implements OnInit, OnDestroy {
   showCorrectAnswersButton = false;
   showSubmitAnswersButton = true;
   disableStartMusicButton = false;
+  showStartMusicButton = false;
   alphabets: any;
 
   constructor(
@@ -32,39 +33,56 @@ export class PlayPageComponent implements OnInit, OnDestroy {
     private questionService: QuestionService,
     private answerService: AnswerService,
     private gameService: GameService,
-    private socketService: SocketService,
-  ) { }
+    private socketService: SocketService
+  ) {}
 
   ngOnInit() {
-    this.alphabets = Array.from({ length: 26 }, (_, i) => String.fromCharCode('A'.charCodeAt(0) + i));
-    from(this.route.paramMap).pipe(flatMap((params) => {
-      const questionId = params.get('questionId');
-      return forkJoin(this.questionService.getQuestionById(questionId));
-    })).subscribe((question: [any]) => {
-      this.question = question[0];
-      this.socketService.socket.emit('showQuestion', this.question);
-    });
+    this.alphabets = Array.from({ length: 26 }, (_, i) =>
+      String.fromCharCode("A".charCodeAt(0) + i)
+    );
+    from(this.route.paramMap)
+      .pipe(
+        flatMap(params => {
+          const questionId = params.get("questionId");
+          return forkJoin(this.questionService.getQuestionById(questionId));
+        })
+      )
+      .subscribe((question: [any]) => {
+        this.question = question[0];
+        this.socketService.socket.emit("showQuestion", this.question);
+      });
   }
 
   countBack() {
+    this.questionService.toggleQuestion(this.question).subscribe((question: any) => {
+      console.log(question);
+    });
+
     const source = interval(1000).subscribe(i => {
       this.countDown--;
-      if (this.countDown <= 0 ) {
+      if (this.countDown <= 0) {
         source.unsubscribe();
         this.showCorrectAnswersButton = true;
+        // this.questionService.toggleQuestion(this.question).subscribe((question: any) => {
+        //   console.log(question);
+        // });
       }
     });
   }
 
   getAnswers() {
     this.question.answers.forEach(answer => {
-      this.answersIds.forEach(answerId => { if (answer.id === answerId) { this.answers.push(answer); } });
+      this.answersIds.forEach(answerId => {
+        if (answer.id === answerId) {
+          this.answers.push(answer);
+        }
+      });
     });
   }
 
   // submitAnswers() {
   //   this.answers = [];
-  //   // get answers object based on answer ids 
+  //   // get answers object based on answer ids
   //   this.getAnswers();
 
   //   this.gameService.getRecentGame()
@@ -81,7 +99,8 @@ export class PlayPageComponent implements OnInit, OnDestroy {
 
   showQuestionAnswers() {
     this.showAnswers = true;
-    this.socketService.socket.emit('showAnswers', this.question.answers);
+    this.showStartMusicButton = true;
+    this.socketService.socket.emit("showAnswers", this.question.answers);
   }
 
   startMusic() {
@@ -93,17 +112,21 @@ export class PlayPageComponent implements OnInit, OnDestroy {
     this.audio.src = `../../../assets/sound/${this.question.musicNamePath}`;
     this.songName = this.question.musicName;
     this.audio.load();
+    this.showStartMusicButton = false;
     this.audio.play();
     const self = this;
-    this.audio.addEventListener('loadeddata', function() {
-      self.socketService.socket.emit('musicStart', this.duration);
+    this.audio.addEventListener("loadeddata", function() {
+      self.socketService.socket.emit("musicStart", this.duration);
       self.countDown = Math.floor(this.duration);
       self.countBack();
-     });
+    });
 
     this.disableStartMusicButton = true;
   }
 
+  showCorrectAnswers() {
+
+  }
 
   ngOnDestroy() {
     if (this.audio) {

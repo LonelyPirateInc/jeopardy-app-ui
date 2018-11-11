@@ -2,6 +2,10 @@
     <div class="play-page-wrapper">
         <div class="question-wrapper" *ngIf="question; else loading">
             <div class="question-text">{{ question.questionText }}</div>
+            <div class="music-counter-wrapper">
+                <h1 *ngIf="countDown > 0">{{countDown}}</h1>
+                <h1 *ngIf="countDown > 0">🎼 - {{songName}}</h1>
+            </div>
             <div class="question-controls-wrapper">
                 <button
                     class="question-control" 
@@ -11,15 +15,14 @@
                 </button>
                 <button
                     class="question-control"
-                    *ngIf="showAnswers"
-                    [disabled]="disableStartMusicButton"
+                    *ngIf="showStartMusicButton"
                     (click)="startMusic()">
                     Start Music
                 </button>
                 <button 
                     class="question-control"
-                    *ngIf="showCorrectAnswersButton && !showCorrectAnswersButton"
-                    (click)="startMusic()">
+                    *ngIf="showCorrectAnswersButton"
+                    (click)="showCorrectAnswers()">
                     Show Correct Answers
                 </button>
             </div>

@@ -31,4 +31,14 @@ export class QuestionService extends BaseService {
         return throwError(err);
       }));
   }
+
+  public toggleQuestion(question: any): Observable<any> {
+    const params = { isActive: !question.isActive };
+    return this.http
+      .post(`${this.hostAddress}:${this.endpointPort}/question/toggle/${question.id}`, params)
+      .pipe(map(response => response['success']))
+      .pipe(catchError(err => {
+        return throwError(err);
+      }));
+  }
 }

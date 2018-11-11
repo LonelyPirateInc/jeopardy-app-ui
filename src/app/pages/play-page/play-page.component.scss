@@ -44,3 +44,9 @@ button.question-control {
     font-weight: 600;
     box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.3);
 }
+
+.music-counter-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
