@@ -1,5 +1,6 @@
-<div class="login-wrapper">
-  <input type="text" nz-input placeholder="Enter your passcode" [(ngModel)]="passcode">
-  <button class="user-submit-btn" (click)="authenticate()" [disabled]="!passcode">Submit</button>
+<div class="content-wrapper">
+  <div class="login-wrapper">
+    <input type="text" nz-input placeholder="Enter your passcode" [(ngModel)]="passcode">
+    <button class="user-submit-btn" (click)="authenticate()" [disabled]="!passcode">Submit</button>
+  </div>
 </div>
-<router-outlet></router-outlet>

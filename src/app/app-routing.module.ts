@@ -10,6 +10,7 @@ import { TeamSelectionComponent } from './pages/client-page/team-selection/team-
 import { ClientPlayComponent } from './pages/client-page/client-play/client-play.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
+import { ClientResetPageComponent } from './pages/client-page/client-reset-page/client-reset-page.component';
 
 const routes: Routes = [
   {
@@ -33,7 +34,8 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'selectTeam', pathMatch: 'full' },
       { path: 'selectTeam', component: TeamSelectionComponent },
-      { path: 'play', component: ClientPlayComponent }
+      { path: 'play', component: ClientPlayComponent },
+      { path: 'reset', component: ClientResetPageComponent }
     ]
   },
   {
