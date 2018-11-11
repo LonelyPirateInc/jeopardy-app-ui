@@ -7,6 +7,7 @@ import { QuestionService } from 'src/app/data/question/question.service';
 import { of, forkJoin } from 'rxjs';
 import * as sortyBy from 'lodash/sortBy';
 import * as groupBy from 'lodash/groupBy';
+import * as isEmpty from 'lodash/isEmpty';
 import { Router } from '@angular/router';
 import { SocketService } from 'src/app/data/socket.service';
 
@@ -25,6 +26,7 @@ export class GamePageComponent implements OnInit {
   newGameName: string;
   showGamePlay: boolean;
   selectedQuestion: any;
+  isAllInAvailable: boolean;
 
   constructor(
     private gameService: GameService,
@@ -45,6 +47,8 @@ export class GamePageComponent implements OnInit {
       const categoriesGrouped = groupBy(categories, category => category.isAllIn);
       this.categories = categoriesGrouped[false];
       this.allInCategory = categoriesGrouped[true];
+      console.log(this.allInCategory);
+      this.isAllInAvailable = !isEmpty(this.allInCategory[0].questions.filter(question => !question.isActive));
       this.socketService.socket.emit('gameStart', game);
       this.existsGame = true;
       this.game = game;
@@ -68,7 +72,6 @@ export class GamePageComponent implements OnInit {
       const categoriesGrouped = groupBy(categories, category => category.isAllIn);
       this.categories = categoriesGrouped[false];
       this.allInCategory = categoriesGrouped[true];
-
       this.existsGame = true;
       this.game = game;
       this.socketService.socket.emit('gameStart', game);
@@ -99,5 +102,9 @@ export class GamePageComponent implements OnInit {
     const playUrl = 'host/play/';
     const question = this.allInCategory[0].questions[0];
     this.router.navigate([playUrl, question.id]);
+  }
+
+  public checkAllInDisabled(): boolean {
+    return false;
   }
 }

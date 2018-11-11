@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="all-in-button-wrapper">
-      <button class="all-in-button" (click)="showAllIn()">All In</button>
+      <button class="all-in-button" [disabled]="isAllInAvailable" (click)="showAllIn()">All In</button>
     </div>
   </div>
 </div>

@@ -53,6 +53,12 @@
   background-color: darkslategrey;
 }
 
+.all-in-button:disabled {
+  background: grey;
+  color: #4c4c4c !important;
+  pointer-events: none;
+}
+
 .all-in-button:hover {
   background-color: gold;
   animation: shake 0.5s cubic-bezier(.36, .07, .19, .97) both;
