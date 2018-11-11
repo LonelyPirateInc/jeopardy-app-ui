@@ -39,20 +39,13 @@ export class HomePageComponent implements OnInit {
   }
 
   handleModalSubmit() {
-    this.gameService.getRecentGame().subscribe((data: [any, any]) => {
-      console.log(data);
-      // const [categories, game] = data;
-      //   if (game) {
-      //     this.gameService.resetGame(game).subscribe();
-      //   }
-    });
-
     this.gameService.getRecentGame()
       .pipe(flatMap(recentGame => this.gameService.resetGame(recentGame) ))
-      .pipe(flatMap(game => this.gameService.createGame(game['name']) ))
-      .subscribe(() => {
+      // .pipe(flatMap(game => this.gameService.createGame(game['name']) ))
+      .subscribe((game) => {
+        console.log("reseted game", game);
         this.handleModalCancel();
-        this.router.navigate(['/host/game']);
+        location.reload();
     });
   }
 
