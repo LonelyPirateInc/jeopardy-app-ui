@@ -2,10 +2,10 @@
   <nz-layout>
     <nz-sider *ngIf="showSidebar" [nzWidth]="170">
       <div class="host-controls">
-        <button style="text-align: center;" routerLink="game">Gameboard</button>
-        <button style="text-align: center;" routerLink="leadership">Leaderboard</button>
-        <button style="text-align: center;" routerLink="teams">Teams</button>
-        <button style="text-align: center;">Reset Game</button>
+        <button style="text-align: center;" routerLink="game" [routerLinkActive]="['is-active']">Gameboard</button>
+        <button style="text-align: center;" routerLink="leadership" [routerLinkActive]="['is-active']">Leaderboard</button>
+        <button style="text-align: center;" routerLink="teams" [routerLinkActive]="['is-active']">Teams</button>
+        <button style="text-align: center;" class="reset-button">Reset Game</button>
       </div>
     </nz-sider>
     <nz-layout>
@@ -17,3 +17,13 @@
     </nz-layout>
   </nz-layout>
 </div>
+<nz-modal 
+  [(nzVisible)]="isVisible" 
+  nzTitle="Reset Game" 
+  (nzOnCancel)="handleModalCancel()" 
+  (nzOnOk)="handleModalSubmit()">
+  <input 
+    nz-input 
+    placeholder="Please enter a game name" 
+    [(ngModel)]="newGameName">
+</nz-modal>

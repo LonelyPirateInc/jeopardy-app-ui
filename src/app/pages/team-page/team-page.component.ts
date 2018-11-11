@@ -10,20 +10,19 @@ import { map, catchError, flatMap } from 'rxjs/operators';
 export class TeamPageComponent implements OnInit {
   newTeamName: string;
   isVisible = false;
-  teams = [
-		{
-			"id": "855ed159-507a-4a92-be45-3cd358c30768",
-			"name": "someTeamName",
-			"createdAt": "2018-11-09T03:22:52.102Z",
-			"updatedAt": "2018-11-09T03:22:52.102Z"
-		}
-	];
+  teams: any;
+  sortName = null;
+  sortValue = null;
+  displayData = [];
 
 
-  constructor(private teamService: TeamService,
-    ) { }
+  constructor(private teamService: TeamService) { }
 
   ngOnInit() {
+    this.teamService.getAllTeams().subscribe((teams) => {
+      this.teams = teams;
+      this.displayData = [...this.teams];
+    });
   }
 
   public showModal(): void {

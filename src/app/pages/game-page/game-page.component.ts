@@ -68,7 +68,6 @@ export class GamePageComponent implements OnInit {
       const [categories, game] = data;
       this.questions = game.questions;
       this.sortQuestionsByCategory(this.questions, categories);
-      
       const categoriesGrouped = groupBy(categories, category => category.isAllIn);
       this.categories = categoriesGrouped[false];
       this.allInCategory = categoriesGrouped[true];
