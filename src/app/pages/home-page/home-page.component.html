@@ -24,13 +24,3 @@
     </nz-layout>
   </nz-layout>
 </div>
-<nz-modal 
-  [(nzVisible)]="isVisible" 
-  nzTitle="Reset Game" 
-  (nzOnCancel)="handleModalCancel()" 
-  (nzOnOk)="handleModalSubmit()">
-  <input 
-    nz-input 
-    placeholder="Please enter a game name" 
-    [(ngModel)]="newGameName">
-</nz-modal>
