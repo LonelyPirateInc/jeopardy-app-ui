@@ -5,13 +5,20 @@
         <button style="text-align: center;" routerLink="game">Gameboard</button>
         <button style="text-align: center;" routerLink="leadership">Leaderboard</button>
         <button style="text-align: center;" routerLink="teams">Teams</button>
-        <button style="text-align: center;">Reset Game</button>
+        <button style="text-align: center;" (click)="showModal()">Reset Game</button>
       </div>
     </nz-sider>
     <nz-layout>
       <nz-content style="margin:0 16px;">
         <div class="content-wrapper">
           <router-outlet></router-outlet>
+          <nz-modal 
+          [(nzVisible)]="isVisible" 
+          nzTitle="Reset Game" 
+          (nzOnCancel)="handleModalCancel()" 
+          (nzOnOk)="handleModalSubmit()">
+          <p>Are you sure you want to reset the game?</p>
+      </nz-modal>
         </div>
       </nz-content>
     </nz-layout>

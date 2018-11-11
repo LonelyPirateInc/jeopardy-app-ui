@@ -5,6 +5,7 @@ import { map, catchError } from 'rxjs/operators';
 
 import { RequestOptions, Request, Headers } from '@angular/http';
 import { BaseService } from '../base.service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -18,6 +19,15 @@ export class GameService extends BaseService {
     const game = {name};
     return this.http
       .post(`${this.hostAddress}:${this.endpointPort}/game/create`, { name })
+      .pipe(map(response => response['payload']))
+      .pipe(catchError(err => {
+        return throwError(err);
+      }));
+  }
+
+  public resetGame(game: any): Observable<any> {
+    return this.http
+      .post(`${this.hostAddress}:${this.endpointPort}/game/toggle/${game.id}`, { isActive: false })
       .pipe(map(response => response['payload']))
       .pipe(catchError(err => {
         return throwError(err);
