@@ -2,19 +2,22 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, catchError, flatMap } from 'rxjs/operators';
 import { Observable, EMPTY, throwError } from 'rxjs';
+import { BaseService } from '../base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TeamService {
+export class TeamService extends BaseService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    super();
+  }
 
   public createTeam(name: string): Observable<any> {
     console.log('name', name);
     return this.http
-      .post(`http://192.168.2.62:3000/team/register`, { name })
-      .pipe(map(response => response["payload"]))
+      .post(`${this.hostAddress}:${this.endpointPort}/team/register`, { name })
+      .pipe(map(response => response['payload']))
       .pipe(catchError(err => {
           return throwError(err);
         }));
@@ -23,9 +26,9 @@ export class TeamService {
 
   public getAllTeams(): Observable<any> {
     return this.http
-      .get(`http://192.168.2.62:3000/team`)
+      .get(`${this.hostAddress}:${this.endpointPort}/team`)
       .pipe(map(response =>
-          response["success"] ? response["payload"] : false
+          response['success'] ? response['payload'] : false
         ))
       .pipe(catchError(err => {
           return throwError(err);

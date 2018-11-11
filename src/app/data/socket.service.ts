@@ -2,17 +2,20 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subscriber, Subject, config } from 'rxjs';
 import * as io from 'socket.io-client';
+import { BaseService } from './base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SocketService {
+export class SocketService extends BaseService {
   public socket: SocketIOClient.Socket;
   public socketConnectionSubject = new Subject<boolean>();
-  constructor() { }
+  constructor() {
+    super();
+  }
   setupConnection(socketConfig?: any): void {
     const configuration = socketConfig;
-    this.socket = io('http://192.168.2.62:8080', { multiplex: true });
+    this.socket = io(`${this.hostAddress}:${this.socketPort}`, { multiplex: true });
     this.socket.on('connect', () => {
       console.log('connected...');
     });

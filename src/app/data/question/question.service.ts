@@ -2,18 +2,21 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, EMPTY, throwError, Subject } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
+import { BaseService } from '../base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class QuestionService {
+export class QuestionService extends BaseService {
   public questionSelected = new Subject<any>();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    super();
+  }
 
   public getQuestionCategories(): Observable<any> {
     return this.http
-      .get(`http://192.168.2.62:3000/category`)
+      .get(`${this.hostAddress}:${this.endpointPort}/category`)
       .pipe(map(response => response['payload']))
       .pipe(catchError(err => {
         return throwError(err);
@@ -22,7 +25,7 @@ export class QuestionService {
 
   public getQuestionById(questionId: string): Observable<any> {
     return this.http
-      .get(`http://192.168.2.62:3000/question/${questionId}`)
+      .get(`${this.hostAddress}:${this.endpointPort}/question/${questionId}`)
       .pipe(map(response => response['payload']))
       .pipe(catchError(err => {
         return throwError(err);

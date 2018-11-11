@@ -2,13 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, EMPTY, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
+import { BaseService } from '../base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ScoreService {
+export class ScoreService extends BaseService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    super();
+  }
 
   // public getAllTeams(): Observable<any> {
   //   return this.http
