@@ -21,6 +21,7 @@ import { UserCreatePageComponent } from './pages/user-create-page/user-create-pa
 import { TeamSelectionComponent } from './pages/client-page/team-selection/team-selection.component';
 import { ClientPlayComponent } from './pages/client-page/client-play/client-play.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { ClientResetPageComponent } from './pages/client-page/client-reset-page/client-reset-page.component';
 
 registerLocaleData(en);
 
@@ -36,7 +37,8 @@ registerLocaleData(en);
     UserCreatePageComponent,
     TeamSelectionComponent,
     ClientPlayComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    ClientResetPageComponent
   ],
   imports: [
     SharedModule,
