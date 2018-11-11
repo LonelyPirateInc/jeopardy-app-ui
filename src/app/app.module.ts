@@ -21,6 +21,7 @@ import { UserCreatePageComponent } from './pages/user-create-page/user-create-pa
 import { TeamSelectionComponent } from './pages/client-page/team-selection/team-selection.component';
 import { ClientPlayComponent } from './pages/client-page/client-play/client-play.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { AppLoadModule } from './app-loader.module';
 
 registerLocaleData(en);
 
@@ -46,7 +47,8 @@ registerLocaleData(en);
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    NgZorroAntdModule
+    NgZorroAntdModule,
+    AppLoadModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
