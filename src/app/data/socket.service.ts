@@ -2,7 +2,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subscriber, Subject, config } from 'rxjs';
 import * as io from 'socket.io-client';
-import { BuildEnvironment } from '../data/environmnet/build-environmnet';
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +9,10 @@ import { BuildEnvironment } from '../data/environmnet/build-environmnet';
 export class SocketService {
   public socket: SocketIOClient.Socket;
   public socketConnectionSubject = new Subject<boolean>();
-
-  constructor(private buildEnvironment: BuildEnvironment) { }
-
+  constructor() { }
   setupConnection(socketConfig?: any): void {
     const configuration = socketConfig;
-    this.socket = io(this.buildEnvironment.socketHost, { multiplex: true });
+    this.socket = io('http://192.168.2.62:8080', { multiplex: true });
     this.socket.on('connect', () => {
       console.log('connected...');
     });

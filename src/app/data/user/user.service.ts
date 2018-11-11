@@ -2,19 +2,18 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { BuildEnvironment } from '../environmnet/build-environmnet';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private http: HttpClient, private buildEnvironment: BuildEnvironment) { }
+  constructor(private http: HttpClient) { }
 
 
   public createUser(username: string): Observable<any> {
     return this.http
-      .post(`${this.buildEnvironment.serviceHost}user/register`, { username })
+      .post(`http://192.168.2.62:3000/user/register`, { username })
       .pipe(map(response => {
           if (response["success"]) {
             localStorage.setItem("user", JSON.stringify(response["payload"]));
@@ -33,7 +32,7 @@ export class UserService {
 
   public authenticate(username: string, password: string): Observable<any> {
     return this.http
-      .post(`${this.buildEnvironment.serviceHost}auth/login`, { username, password })
+      .post(`http://192.168.2.62:3000/auth/login`, { username, password })
       .pipe(map(response => {
         if (response['success']) {
           console.log(response);
