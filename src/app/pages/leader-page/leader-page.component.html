@@ -2,16 +2,16 @@
   <nz-table #filterTable [nzData]="displayData">
     <thead (nzSortChange)="sort($event)" nzSingleSort>
       <tr>
-        <th nzWidth="20%" class="table-font-size table-font-bold ">Ranking</th>
-        <th nzWidth="65%" class="table-font-size">Team</th>
-        <th nzShowSort nzSortKey="score" class="table-font-size">Points</th>
+        <th nzWidth="25%" class="table-font-size-header table-font-bold ">Ranking</th>
+        <th nzWidth="55%" class="table-font-size-header">Team</th>
+        <th nzShowSort nzSortKey="score" class="table-font-size-header">Points</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let team of filterTable.data; let i = index;">
-        <td class="table-font-size  table-font-bold">{{ i + 1}}</td>
-        <td class="table-font-size">{{team.name}}</td>
-        <td class="table-font-size">{{team.point}}</td>
+        <td class="table-font-size-data  table-font-bold">{{ i + 1}}</td>
+        <td class="table-font-size-data">{{team.name}}</td>
+        <td class="table-font-size-data">{{team.point}}</td>
       </tr>
     </tbody>
   </nz-table>
