@@ -51,4 +51,13 @@ export class GameService extends BaseService {
         return throwError(err);
       }));
   }
+
+  public getGameScores(gameId: string): Observable<any> {
+    return this.http
+      .get(`${this.hostAddress}:${this.endpointPort}/game/${gameId}/scores`)
+      .pipe(map(response => response['success'] ? response['payload'] : false))
+      .pipe(catchError(err => {
+        return throwError(err);
+      }));
+  }
 }

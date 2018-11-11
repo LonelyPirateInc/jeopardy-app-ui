@@ -2,10 +2,10 @@
     <div class="play-page-wrapper">
         <div class="question-wrapper" *ngIf="question; else loading">
             <div class="question-text">{{ question.questionText }}</div>
-            <div class="music-counter-wrapper">
+            <!-- <div class="music-counter-wrapper">
                 <h1 *ngIf="countDown > 0">{{countDown}}</h1>
                 <h1 *ngIf="countDown > 0">🎼 - {{songName}}</h1>
-            </div>
+            </div> -->
             <div class="question-controls-wrapper">
                 <button
                     class="question-control" 
@@ -30,7 +30,7 @@
         <ng-template #loading>Loading the question...</ng-template>
         <div class="question-answers-wrapper" *ngIf="showAnswers">
             <ul>
-                <li *ngFor="let answer of question.answers; let i = index" class="answer-item">{{ alphabets[i] }}. {{ answer.answerText }}</li>
+                <li *ngFor="let answer of question.answers; let i = index" class="answer-item" [ngClass]="{'correct-answer': showCorrectAnswer && answer.isCorrect}">{{ alphabets[i] }}. {{ answer.answerText }}</li>
             </ul>
         </div>
     </div>

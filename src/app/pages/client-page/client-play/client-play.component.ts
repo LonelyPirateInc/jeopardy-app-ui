@@ -30,6 +30,7 @@ export class ClientPlayComponent implements OnInit, OnDestroy {
   user: any;
   score = 0;
   game: any;
+  submittedAnswers = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -78,7 +79,9 @@ export class ClientPlayComponent implements OnInit, OnDestroy {
       if (this.countDown <= 0) {
         source.unsubscribe();
         this.canPlay = false;
-        this.submitAnswers();
+        if (!this.submittedAnswers) {
+          this.submitAnswers();
+        }
         this.question = null;
       }
     });
@@ -102,6 +105,7 @@ export class ClientPlayComponent implements OnInit, OnDestroy {
     this.answerService.submitAnswers(this.answers, this.question.id, game.id, team).subscribe((score) => {
       this.score = score;
       this.showSubmitAnswersButton = false;
+      this.submittedAnswers = true;
     }, () => {
       this.canPlay = true;
     });

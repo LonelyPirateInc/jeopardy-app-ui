@@ -26,6 +26,10 @@ ul {
         border-radius: 5px;
         background-color: #897ec3;
     }
+
+    li.correct-answer {
+        background-color: #b85bff;
+    }
 }
 
 .question-controls-wrapper {
@@ -50,3 +54,4 @@ button.question-control {
     flex-direction: row;
     justify-content: space-between;
 }
+

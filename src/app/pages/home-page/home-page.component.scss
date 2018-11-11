@@ -47,3 +47,11 @@ nz-sider {
     background-color: black;
   }
 }
+
+button.is-active {
+  background-color: #6c6fff;
+  border: none;
+  outline: none;
+  color: white;
+  font-weight: 600;
+}

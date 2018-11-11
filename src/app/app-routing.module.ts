@@ -10,6 +10,7 @@ import { TeamSelectionComponent } from './pages/client-page/team-selection/team-
 import { ClientPlayComponent } from './pages/client-page/client-play/client-play.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
+import { ClientResetPageComponent } from './pages/client-page/client-reset-page/client-reset-page.component';
 
 const routes: Routes = [
   {
@@ -23,28 +24,18 @@ const routes: Routes = [
       { path: '', redirectTo: 'game', pathMatch: 'full' },
       { path: 'game', component: GamePageComponent },
       { path: 'play/:questionId', component: PlayPageComponent },
-      { path: 'leadership', component: LeaderPageComponent }
+      { path: 'leadership', component: LeaderPageComponent },
+      { path: 'teams', component: TeamPageComponent }
     ]
   },
-  // {
-  //   path: 'leadership',
-  //   component: LeaderPageComponent
-  // },
-  // {
-  //   path: 'teams',
-  //   component: TeamPageComponent
-  // },
-  // {
-  //   path: 'play/:questionId',
-  //   component: PlayPageComponent
-  // },
   {
     path: 'client',
     component: ClientPageComponent,
     children: [
       { path: '', redirectTo: 'selectTeam', pathMatch: 'full' },
       { path: 'selectTeam', component: TeamSelectionComponent },
-      { path: 'play', component: ClientPlayComponent }
+      { path: 'play', component: ClientPlayComponent },
+      { path: 'reset', component: ClientResetPageComponent }
     ]
   },
   {
