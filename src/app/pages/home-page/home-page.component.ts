@@ -3,6 +3,7 @@ import { UserService } from 'src/app/data/user/user.service';
 import { Router } from '@angular/router';
 import { GameService } from 'src/app/data/game/game.service';
 import { flatMap } from 'rxjs/operators';
+import { NzNotificationService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-home-page',
@@ -20,7 +21,8 @@ export class HomePageComponent implements OnInit {
   constructor(
     private userService: UserService,
     private gameService: GameService,
-    private router: Router
+    private router: Router,
+    private notificationService: NzNotificationService,
   ) { }
 
 
@@ -39,14 +41,15 @@ export class HomePageComponent implements OnInit {
   }
 
   handleModalSubmit() {
-    this.gameService.getRecentGame()
-      .pipe(flatMap(recentGame => this.gameService.resetGame(recentGame) ))
-      // .pipe(flatMap(game => this.gameService.createGame(game['name']) ))
-      .subscribe((game) => {
-        console.log("reseted game", game);
+    this.gameService
+      .getRecentGame()
+      .pipe(flatMap(recentGame => this.gameService.resetGame(recentGame)))
+      .pipe(flatMap(game => this.gameService.createGame(game['name']) ))
+      .subscribe(game => {
+        this.router.navigate(['host/game']);
+        this.notificationService.blank('Successful Game Reset!', 'Game is reset. New game is created');
         this.handleModalCancel();
-        location.reload();
-    });
+      });
   }
 
   handleModalCancel() {
