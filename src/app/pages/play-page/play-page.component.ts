@@ -26,6 +26,7 @@ export class PlayPageComponent implements OnInit, OnDestroy {
   showSubmitAnswersButton = true;
   disableStartMusicButton = false;
   showStartMusicButton = false;
+  showCorrectAnswer = false;
   alphabets: any;
 
   constructor(
@@ -125,7 +126,8 @@ export class PlayPageComponent implements OnInit, OnDestroy {
   }
 
   showCorrectAnswers() {
-
+    this.showCorrectAnswersButton = false;
+    this.showCorrectAnswer = true;
   }
 
   ngOnDestroy() {
