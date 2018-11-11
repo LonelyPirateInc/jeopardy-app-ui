@@ -23,21 +23,10 @@ const routes: Routes = [
       { path: '', redirectTo: 'game', pathMatch: 'full' },
       { path: 'game', component: GamePageComponent },
       { path: 'play/:questionId', component: PlayPageComponent },
-      { path: 'leadership', component: LeaderPageComponent }
+      { path: 'leadership', component: LeaderPageComponent },
+      { path: 'teams', component: TeamPageComponent }
     ]
   },
-  // {
-  //   path: 'leadership',
-  //   component: LeaderPageComponent
-  // },
-  // {
-  //   path: 'teams',
-  //   component: TeamPageComponent
-  // },
-  // {
-  //   path: 'play/:questionId',
-  //   component: PlayPageComponent
-  // },
   {
     path: 'client',
     component: ClientPageComponent,
