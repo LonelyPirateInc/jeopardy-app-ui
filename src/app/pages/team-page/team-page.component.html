@@ -1,17 +1,13 @@
 <div class="team-page-wrapper">
     <nz-table #filterTable [nzData]="displayData">
-    <thead (nzSortChange)="sort($event)" nzSingleSort>
+    <thead nzSingleSort>
       <tr>
-        <th nzWidth="15%">Ranking</th>
         <th nzWidth="65%">Team</th>
-        <th nzShowSort nzSortKey="score">Points</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let team of filterTable.data; let i = index;">
-        <td>{{ i + 1}}</td>
         <td>{{team.name}}</td>
-        <td>{{team.point}}</td>
       </tr>
     </tbody>
   </nz-table>

@@ -1,5 +1,5 @@
 <div class="leadership-board-wrapper">
-  <nz-table #filterTable [nzData]="displayData">
+  <nz-table #filterTable [nzData]="displayData" [nzPageSize]="10">
     <thead (nzSortChange)="sort($event)" nzSingleSort>
       <tr>
         <th nzWidth="25%" class="table-font-size-header table-font-bold ">Ranking</th>
