@@ -4,8 +4,6 @@
     <div class="game-title">The Gig is Up!!</div>
       <div class="question-wrapper" *ngIf="question; else loading">
         <div class="question-text">{{ question.questionText }}</div>
-        <h2>{{countDown}}</h2>
-        <h1>{{songName}}</h1>
       </div>
       <ng-template #loading>Wait for the question.</ng-template>
   </div>

@@ -113,20 +113,19 @@ export class ClientPlayComponent implements OnInit, OnDestroy {
 
     const { game } = this.question;
     const team = JSON.parse(localStorage.getItem('team'));
-    this.answerService.submitAnswers(this.answers, this.question.id, game.id, team, this.isAllInQuestion).subscribe((score) => {
-      this.score = score;
+
+    if (this.answers.length) {
+      this.answerService.submitAnswers(this.answers, this.question.id, game.id, team, this.isAllInQuestion).subscribe((score) => {
+        this.score = score;
+        this.showSubmitAnswersButton = false;
+        this.submittedAnswers = true;
+      }, () => {
+        this.canPlay = true;
+      });
+    } else {
       this.showSubmitAnswersButton = false;
       this.submittedAnswers = true;
-    }, () => {
-      this.canPlay = true;
-    });
-
-    // this.gameService.getRecentGame()
-    //   .pipe(flatMap(game => this.answerService.submitAnswers(this.answers, this.question.id, game.id)))
-    //   .subscribe(response => {
-    //     console.log(response);
-    //     this.showSubmitAnswersButton = false;
-    //   });
+    }
   }
 
   updateArrayOfAnswers(value: any[]): void {
@@ -137,23 +136,23 @@ export class ClientPlayComponent implements OnInit, OnDestroy {
     this.showAnswers = true;
   }
 
-  startMusic() {
-    if (this.audio) {
-      this.audio.pause();
-      this.audio = null;
-    }
-    this.audio = new Audio();
-    this.audio.src = `../../../assets/sound/${this.question.musicNamePath}`;
-    this.songName = this.question.musicName;
-    this.audio.load();
-    this.audio.play();
-    const self = this;
-    this.audio.addEventListener("loadeddata", function () {
-      // set timeer
-      self.countDown = Math.floor(this.duration);
-      self.countBack();
-    });
-  }
+  // startMusic() {
+  //   if (this.audio) {
+  //     this.audio.pause();
+  //     this.audio = null;
+  //   }
+  //   this.audio = new Audio();
+  //   this.audio.src = `../../../assets/sound/${this.question.musicNamePath}`;
+  //   this.songName = this.question.musicName;
+  //   this.audio.load();
+  //   this.audio.play();
+  //   const self = this;
+  //   this.audio.addEventListener("loadeddata", function () {
+  //     // set timeer
+  //     self.countDown = Math.floor(this.duration);
+  //     self.countBack();
+  //   });
+  // }
 
   ngOnDestroy() {
     if (this.audio) {
