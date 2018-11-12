@@ -13,13 +13,12 @@ export class AnswerService extends BaseService {
     super();
   }
 
-  public submitAnswers(answers: any[], questionId: string, gameId: string, team: any): Observable<any> {
+  public submitAnswers(answers: any[], questionId: string, gameId: string, team: any, isAllInQuestion: boolean): Observable<any> {
     const params = {
       answers,
-      team
+      team,
+      isAllInQuestion
     };
-
-    console.log(team);
     return this.http
       .post(`${this.hostAddress}:${this.endpointPort}/game/play/${gameId}/${questionId}`, params)
       .pipe(map(response => response['payload']))
