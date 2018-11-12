@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { SocketService } from '../../data/socket.service';
 
 @Component({
   selector: 'app-client-page',
@@ -6,8 +7,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
   styleUrls: ['./client-page.component.scss']
 })
 export class ClientPageComponent implements OnInit {
-  constructor() { }
+  constructor(private socketService: SocketService) { }
 
   ngOnInit() {
+    // this.socketService.socket.emit();
   }
 }

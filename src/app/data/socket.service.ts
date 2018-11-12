@@ -16,10 +16,13 @@ export class SocketService extends BaseService {
   setupConnection(socketConfig?: any): void {
     const configuration = socketConfig;
     this.socket = io(`${this.hostAddress}:${this.socketPort}`, { multiplex: true });
-    this.socket.on('connect', () => {
+    this.socket.on('connect', (client) => {
       console.log('connected...');
     });
 
+    this.socket.on('disconnect', () => {
+      this.socket.connect();
+    });
 
     this.socket.emit('events', { test: 'testing' });
     this.socket.on('events', (data) => {

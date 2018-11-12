@@ -57,6 +57,8 @@ export class GamePageComponent implements OnInit {
           this.isAllInAvailable = !isEmpty(
             this.allInCategory[0].questions.filter(question => !question.isActive)
           );
+
+          console.log(this.isAllInAvailable);
           this.socketService.socket.emit("gameStart", game);
           this.existsGame = true;
           this.game = game;

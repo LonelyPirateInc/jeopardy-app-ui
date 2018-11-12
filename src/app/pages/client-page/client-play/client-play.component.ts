@@ -49,13 +49,22 @@ export class ClientPlayComponent implements OnInit, OnDestroy {
     if (!this.user && !this.team) {
       this.router.navigate(['client/selectTeam']);
     } else {
-      // this.gameService.getGameScoreByTeam(this.question.game.id, this.team.id).subscribe(score => this.score = score);
+      from(this.route.params)
+        .pipe(flatMap((params) => this.gameService.getGameScoreByTeam(params['gameId'], this.team.id)))
+        .subscribe((score) => {
+          this.score = score;
+          console.log(this.score);
+        });
     }
 
     this.subscribeToSockets();
   }
 
   subscribeToSockets(): void {
+    this.socketService.socket.on('connect_timeout', () => {
+      this.socketService.socket.connect();
+    });
+
     this.socketService.socket.on('showQuestion', (question: any) => {
       this.question = question;
     });

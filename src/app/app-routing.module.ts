@@ -34,7 +34,7 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'selectTeam', pathMatch: 'full' },
       { path: 'selectTeam', component: TeamSelectionComponent },
-      { path: 'play', component: ClientPlayComponent },
+      { path: 'play/:gameId', component: ClientPlayComponent },
       { path: 'reset', component: ClientResetPageComponent }
     ]
   },

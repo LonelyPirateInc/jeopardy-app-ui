@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TeamService } from 'src/app/data/team/team.service';
 import { UserService } from 'src/app/data/user/user.service';
 import { Router } from '@angular/router';
+import { SocketService } from '../../../data/socket.service';
 
 @Component({
   selector: "app-team-selection",
@@ -15,7 +16,8 @@ export class TeamSelectionComponent implements OnInit {
   constructor(
     private teamService: TeamService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private socketService: SocketService
   ) {}
 
   ngOnInit() {
@@ -31,7 +33,11 @@ export class TeamSelectionComponent implements OnInit {
       if (!this.checkUserAlreadyExist()) {
         this.userService.createUser(this.username).subscribe(() => {
           this.handleSelect(this.selectedTeam);
-          this.router.navigate(["client/play"]);
+          this.socketService.socket.emit('readyForGame');
+          this.socketService.socket.on('gameCheckResult', (game) => {
+            console.log(game);
+            this.router.navigate([`client/play/${game.id}`]);
+          });
         });
       }
     }
@@ -40,7 +46,12 @@ export class TeamSelectionComponent implements OnInit {
   checkUserAlreadyExist(): boolean {
     const user = this.userService.checkUserExist();
     if (user && user.userType === "player") {
-      this.router.navigate(["client/play"]);
+        this.socketService.socket.emit('readyForGame');
+        this.socketService.socket.on('gameCheckResult', (game) => {
+          console.log(game);
+          this.router.navigate([`client/play/${game.id}`]);
+        });
+
     }
 
     return Boolean(user);
