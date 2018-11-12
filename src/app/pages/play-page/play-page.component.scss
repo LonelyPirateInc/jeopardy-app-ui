@@ -30,6 +30,13 @@ ul {
     li.correct-answer {
         background-color: #b85bff;
     }
+    
+    span.point-container {
+        justify-self: flex-end;
+        border-radius: 5px;
+        padding: 5px;
+        background-color: #ff4d4f;
+    }
 }
 
 .question-controls-wrapper {
