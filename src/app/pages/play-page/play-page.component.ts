@@ -7,6 +7,7 @@ import { map, mergeMap, filter, flatMap } from 'rxjs/operators';
 import { AnswerService } from 'src/app/data/answer/answer.service';
 import { GameService } from '../../data/game/game.service';
 import { SocketService } from 'src/app/data/socket.service';
+import * as orderBy from 'lodash/orderBy';
 
 @Component({
   selector: "app-play-page",
@@ -49,7 +50,10 @@ export class PlayPageComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe((question: [any]) => {
-        this.question = question[0];
+        const theQuestion = question[0];
+        theQuestion.answers = orderBy(question[0].answers, ['answerIndex', 'asc']);
+        console.log(theQuestion.answers);
+        this.question = theQuestion;
         this.socketService.socket.emit("showQuestion", this.question);
       });
   }

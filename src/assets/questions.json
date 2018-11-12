@@ -43,6 +43,7 @@
         "difficulty": 0,
         "answers": [
           {
+            "index": 0,
             "answerText": "Some Answer Text",
             "point": 10000,
             "isCorrect": true
