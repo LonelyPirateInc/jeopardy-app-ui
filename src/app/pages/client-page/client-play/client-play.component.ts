@@ -31,6 +31,7 @@ export class ClientPlayComponent implements OnInit, OnDestroy {
   score = 0;
   game: any;
   submittedAnswers = false;
+  isAllInQuestion = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -67,6 +68,7 @@ export class ClientPlayComponent implements OnInit, OnDestroy {
 
     this.socketService.socket.on('showQuestion', (question: any) => {
       this.question = question;
+      this.isAllInQuestion = question.category.isAllIn;
     });
 
     this.socketService.socket.on('showAnswers', (question: any) => {
@@ -111,7 +113,7 @@ export class ClientPlayComponent implements OnInit, OnDestroy {
 
     const { game } = this.question;
     const team = JSON.parse(localStorage.getItem('team'));
-    this.answerService.submitAnswers(this.answers, this.question.id, game.id, team).subscribe((score) => {
+    this.answerService.submitAnswers(this.answers, this.question.id, game.id, team, this.isAllInQuestion).subscribe((score) => {
       this.score = score;
       this.showSubmitAnswersButton = false;
       this.submittedAnswers = true;
