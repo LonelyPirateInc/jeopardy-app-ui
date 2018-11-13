@@ -9,13 +9,15 @@
             <div class="question-controls-wrapper">
                 <button
                     class="question-control" 
-                    *ngIf="!showAnswers"
+                    *ngIf="!showCorrectAnswersButton"
+                    [disabled]="showAnswers"
                     (click)="showQuestionAnswers()">
                     Show Answers
                 </button>
                 <button
                     class="question-control"
-                    *ngIf="showStartMusicButton"
+                    *ngIf="!showCorrectAnswersButton"
+                    [disabled]="!showStartMusicButton"
                     (click)="startMusic()">
                     Start Music
                 </button>
@@ -30,7 +32,7 @@
         <ng-template #loading>Loading the question...</ng-template>
         <div class="question-answers-wrapper" *ngIf="showAnswers">
             <ul>
-                <li *ngFor="let answer of question.answers; let i = index" class="answer-item" [ngClass]="{'correct-answer': showCorrectAnswer && answer.isCorrect}">{{ alphabets[i] }}. {{ answer.answerText }} <span class="point-container" *ngIf="showCorrectAnswer">{{ answer.point }}</span></li>
+                <li *ngFor="let answer of question.answers; let i = index" class="answer-item" [ngClass]="{'correct-answer': showCorrectAnswer && answer.isCorrect}">{{ alphabets[i] }}. {{ answer.answerText }}</li>
             </ul>
         </div>
     </div>
