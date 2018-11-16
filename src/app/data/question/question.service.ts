@@ -41,4 +41,14 @@ export class QuestionService extends BaseService {
         return throwError(err);
       }));
   }
+
+  public getCurrentQuestion(): Observable<any> {
+    return this.http
+      .get(`${this.hostAddress}:${this.endpointPort}/question/currentQuestion`)
+      .pipe(map(response => response['payload']))
+      .pipe(catchError(err => {
+        return throwError(err);
+      }));
+  }
+
 }

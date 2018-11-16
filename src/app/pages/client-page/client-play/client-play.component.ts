@@ -64,6 +64,10 @@ export class ClientPlayComponent implements OnInit, OnDestroy {
   subscribeToSockets(): void {
     this.socketService.socket.on('connect_timeout', () => {
       this.socketService.socket.connect();
+
+      if (this.socketService.socket.connected) {
+        this.fetchCurrentQuestion();
+      }
     });
 
     this.socketService.socket.on('showQuestion', (question: any) => {
@@ -76,10 +80,19 @@ export class ClientPlayComponent implements OnInit, OnDestroy {
     });
 
     this.socketService.socket.on('musicStart', (duration: any) => {
+      this.showAnswers = true;
       this.countDown = Math.floor(duration);
       this.countBack();
       this.canPlay = true;
     });
+  }
+
+
+  fetchCurrentQuestion() {
+    this.questionService.getCurrentQuestion().subscribe(question => this.question = question);
+
+    // re-subscribe to the events since they not anymore there after reconnection 
+    this.subscribeToSockets();
   }
 
 
