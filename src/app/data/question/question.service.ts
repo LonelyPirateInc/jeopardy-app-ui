@@ -44,7 +44,16 @@ export class QuestionService extends BaseService {
 
   public getCurrentQuestion(): Observable<any> {
     return this.http
-      .get(`${this.hostAddress}:${this.endpointPort}/question/currentQuestion`)
+      .get(`${this.hostAddress}:${this.endpointPort}/question`)
+      .pipe(map(response => response['payload']))
+      .pipe(catchError(err => {
+        return throwError(err);
+      }));
+  }
+
+  public updateQuestion(questionId: string, updatedQuestion): Observable<any> {
+    return this.http
+      .put(`${this.hostAddress}:${this.endpointPort}/question/${questionId}`, updatedQuestion)
       .pipe(map(response => response['payload']))
       .pipe(catchError(err => {
         return throwError(err);

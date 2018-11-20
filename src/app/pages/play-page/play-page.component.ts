@@ -52,25 +52,17 @@ export class PlayPageComponent implements OnInit, OnDestroy {
       .subscribe((question: [any]) => {
         const theQuestion = question[0];
         theQuestion.answers = orderBy(question[0].answers, ['answerIndex', 'asc']);
-        console.log(theQuestion.answers);
         this.question = theQuestion;
         this.socketService.socket.emit("showQuestion", this.question);
       });
   }
 
   countBack() {
-    this.questionService.toggleQuestion(this.question).subscribe((question: any) => {
-      console.log(question);
-    });
-
     const source = interval(1000).subscribe(i => {
       this.countDown--;
       if (this.countDown <= 0) {
         source.unsubscribe();
         this.showCorrectAnswersButton = true;
-        // this.questionService.toggleQuestion(this.question).subscribe((question: any) => {
-        //   console.log(question);
-        // });
       }
     });
   }
@@ -106,6 +98,9 @@ export class PlayPageComponent implements OnInit, OnDestroy {
     this.showAnswers = true;
     this.showStartMusicButton = true;
     this.socketService.socket.emit("showAnswers", this.question.answers);
+    this.question.isAnswersShown = this.showAnswers;
+    // make a call to update question isAnswersShow property
+    this.questionService.updateQuestion(this.question.id, this.question).subscribe();
   }
 
   startMusic() {
@@ -127,6 +122,10 @@ export class PlayPageComponent implements OnInit, OnDestroy {
     });
 
     this.disableStartMusicButton = true;
+    // make a call to update question isAnswersShow property
+    this.question.isPlayMusicOn = true;
+    this.question.isActive = false;
+    this.questionService.updateQuestion(this.question.id, this.question).subscribe();
   }
 
   showCorrectAnswers() {

@@ -15,7 +15,7 @@ import { ScoreService } from 'src/app/data/score/score.service';
   templateUrl: './client-play.component.html',
   styleUrls: ['./client-play.component.scss']
 })
-export class ClientPlayComponent implements OnInit, OnDestroy {
+export class ClientPlayComponent implements OnInit, OnDestroy, AfterViewInit {
   question: any;
   questionSelectionSubscription: Subscription;
   answersIds = [];
@@ -43,6 +43,7 @@ export class ClientPlayComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+
     this.user = JSON.parse(localStorage.getItem('user'));
     this.team = JSON.parse(localStorage.getItem('team'));
     console.log(this.team);
@@ -55,10 +56,18 @@ export class ClientPlayComponent implements OnInit, OnDestroy {
         .subscribe((score) => {
           this.score = score;
           console.log(this.score);
+          // this.questionService.getCurrentQuestion().subscribe(question => this.question = question);
+
         });
     }
 
     this.subscribeToSockets();
+  }
+
+  ngAfterViewInit() {
+    if (!this.question) {
+      this.questionService.getCurrentQuestion().subscribe(question => this.question = question);
+    }
   }
 
   subscribeToSockets(): void {
